@@ -1,0 +1,1 @@
+export { useHeatMapScale } from './useHeatMapScale';
