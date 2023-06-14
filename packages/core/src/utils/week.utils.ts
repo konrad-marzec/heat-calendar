@@ -1,4 +1,5 @@
 import { DAYS_IN_WEEK } from '../constants/week.constants';
+import { fromDays } from './time.utils';
 
 function startOfTheFirstWeekOfTheYear(year: number) {
   const date = new Date(year, 0, 1);
@@ -9,7 +10,7 @@ function startOfTheFirstWeekOfTheYear(year: number) {
 
 export function getWeekStartDay(year: number, month: number, week: number): number {
   if (month === -1) {
-    const timestamp = startOfTheFirstWeekOfTheYear(year).getTime() + DAYS_IN_WEEK * week * 24 * 60 * 60 * 1000;
+    const timestamp = startOfTheFirstWeekOfTheYear(year).getTime() + DAYS_IN_WEEK * week * fromDays(1);
 
     return new Date(timestamp).getDate();
   }
@@ -23,13 +24,13 @@ export function getWeekStartDay(year: number, month: number, week: number): numb
 
 export function getWeekNumber(date: Date) {
   const year = new Date(date.getFullYear(), 0, 1);
-  const days = Math.floor((date.getTime() - year.getTime()) / (24 * 60 * 60 * 1000));
+  const days = Math.floor((date.getTime() - year.getTime()) / fromDays(1));
 
   return Math.ceil((date.getDay() + 1 + days) / 7);
 }
 
 export function getMonthForWeek(year: number, week: number) {
-  const timestamp = startOfTheFirstWeekOfTheYear(year).getTime() + DAYS_IN_WEEK * week * 24 * 60 * 60 * 1000;
+  const timestamp = startOfTheFirstWeekOfTheYear(year).getTime() + DAYS_IN_WEEK * week * fromDays(1);
 
   return new Date(timestamp).getMonth();
 }
