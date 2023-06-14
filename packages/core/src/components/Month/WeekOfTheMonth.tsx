@@ -1,13 +1,13 @@
 import { type ComponentType, useMemo, type ComponentProps } from 'react';
 
-import type DefaultDay from './Day';
-import { useStoreValue } from '../model/Store';
-import { formatDate } from '../utils/date.utils';
-import { DAYS_IN_WEEK } from '../constants/week.constants';
-import { getWeekStartDay } from '../utils/week.utils';
-import { useHeatMapScale } from '../hooks';
+import type DefaultDay from '../Day';
+import { useStoreValue } from '../../model/Store';
+import { formatDate } from '../../utils/date.utils';
+import { DAYS_IN_WEEK } from '../../constants/week.constants';
+import { getWeekStartDay } from '../../utils/week.utils';
+import { useHeatMapScale } from '../../hooks';
 
-interface WeekProps {
+interface WeekOfTheMonthProps {
   week: number;
   x: number;
   y: number;
@@ -19,7 +19,17 @@ interface WeekProps {
   day: ComponentType<ComponentProps<typeof DefaultDay>>;
 }
 
-function Week({ x: originX, y: originY, week, month, year, size, gutter, weeks, day: Day }: WeekProps) {
+function WeekOfTheMonth({
+  x: originX,
+  y: originY,
+  year,
+  month,
+  week,
+  size,
+  gutter,
+  weeks,
+  day: Day,
+}: WeekOfTheMonthProps) {
   const fitToScale = useHeatMapScale();
   const heat = useStoreValue((store) => store.heatMap);
 
@@ -69,7 +79,8 @@ function Week({ x: originX, y: originY, week, month, year, size, gutter, weeks, 
             month={month}
             day={config.day}
             value={value}
-            size={size}
+            width={size}
+            height={size}
             x={originX}
             y={originY + config.y}
             fitToScale={fitToScale}
@@ -80,4 +91,4 @@ function Week({ x: originX, y: originY, week, month, year, size, gutter, weeks, 
   );
 }
 
-export default Week;
+export default WeekOfTheMonth;

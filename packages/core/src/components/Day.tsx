@@ -1,16 +1,15 @@
-interface DayProps {
-  x: number;
-  y: number;
+import { Dim } from '../types';
+
+interface DayProps extends Dim {
   day: number;
-  size: number;
   year: number;
   month: number;
   value: number;
   fitToScale: (value?: number | null) => string | undefined;
 }
 
-function Day({ x, y, value, size, fitToScale }: DayProps) {
-  return <rect width={size} height={size} x={x} y={y} fill={fitToScale(value)} rx={2} />;
+function Day({ x, y, value, width, height, fitToScale }: DayProps) {
+  return <rect width={width} height={height} x={x} y={y} fill={fitToScale(value)} rx={2} />;
 }
 
 export default Day;

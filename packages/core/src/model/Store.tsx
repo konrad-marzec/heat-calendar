@@ -1,20 +1,23 @@
 import { ReactNode, useEffect } from 'react';
 import createFastContext from '../utils/createFastContext';
 import { formatDate } from '../utils/date.utils';
+import { Category } from '../constants/layout.constants';
 
 const { Provider, useStore, useSetStore, useStoreValue } = createFastContext({
   heatMap: new Map(),
   colors: [] as string[],
+  category: Category.MONTH,
 });
 
 interface StoreProps<T> {
   colors?: string[];
+  category: Category;
   children: ReactNode;
   data: Array<[string, T]>;
   dataKey: keyof T | ((current: number | undefined, item: T) => number);
 }
 
-function InitializeStore<T>({ children, data, dataKey, colors }: StoreProps<T>) {
+function InitializeStore<T>({ children, data, dataKey, colors, category }: StoreProps<T>) {
   const set = useSetStore();
 
   useEffect(() => {
@@ -39,6 +42,10 @@ function InitializeStore<T>({ children, data, dataKey, colors }: StoreProps<T>) 
   useEffect(() => {
     set({ colors });
   }, [set, colors]);
+
+  useEffect(() => {
+    set({ category });
+  }, [set, category]);
 
   return children;
 }

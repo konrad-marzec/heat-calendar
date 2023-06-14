@@ -1,23 +1,24 @@
 import { type ComponentProps, type ComponentType, useMemo, useCallback, useState, useRef } from 'react';
 
 import Day from './Day';
-import Month from './Month';
-import { countWeeks, reshuffleMonths } from '../utils/months.utils';
 import { DAYS_IN_WEEK } from '../constants/week.constants';
 import Store from '../model/Store';
-import MonthName from './MonthName';
+import HLabel from './HLabel';
 import DayName from './DayName';
+import { Category } from '../constants/layout.constants';
+import { layoutFactory } from '../utils/layout.utils';
 
 interface HeatCalendarProps<T> {
   size?: number;
   colors?: string[];
   className?: string;
+  category?: Category;
   startsAt?: string | Date;
   data: Array<[string, T]>;
   gutter?: [number, number];
   day?: ComponentType<ComponentProps<typeof Day>>;
   vLabel?: ComponentType<ComponentProps<typeof DayName>> | null;
-  hLabel?: ComponentType<ComponentProps<typeof MonthName>> | null;
+  hLabel?: ComponentType<ComponentProps<typeof HLabel>> | null;
   dataKey: keyof T | ((current: number | undefined, item: T) => number);
 }
 
@@ -30,43 +31,21 @@ function HeatCalendar<T>({
   gutter = [2, 2],
   startsAt = new Date(),
   day: DayRenderer = Day,
+  category = Category.MONTH,
   vLabel: VLabelRenderer = DayName,
-  hLabel: HLabelRenderer = MonthName,
+  hLabel: HLabelRenderer = HLabel,
 }: HeatCalendarProps<T>) {
   const labelsRef = useRef<SVGGElement>();
   const [legendWidth, setLegendWidth] = useState(0);
 
-  const hSpace = 3 * gutter[0];
-  const vSpace = 3 * gutter[1];
-  const height = DAYS_IN_WEEK * size + (DAYS_IN_WEEK - 1) * gutter[1];
-
-  const monthsGrid = useMemo(() => {
-    const date = new Date(startsAt);
-    const startMonth = date.getMonth();
-    const startYear = date.getFullYear();
-
-    let x = 0;
-
-    return reshuffleMonths(startMonth).map((month) => {
-      const year = startYear - (month > startMonth ? 1 : 0);
-      const weeks = countWeeks(year, month);
-
-      const width = weeks * size + (weeks - 1) * gutter[0];
-      const config = {
-        x,
-        y: 0,
-        year,
-        month,
-        weeks,
-        width,
-        height,
-      };
-
-      x += width + hSpace;
-
-      return config;
-    });
-  }, [startsAt, size, hSpace, gutter, height]);
+  const [Layout, grid] = useMemo(
+    () =>
+      layoutFactory(new Date(startsAt), category, {
+        size,
+        gutter,
+      }),
+    [category, gutter, size, startsAt],
+  );
 
   const setRef = useCallback((ref: SVGGElement | null) => {
     if (!ref) {
@@ -83,17 +62,20 @@ function HeatCalendar<T>({
     setLegendWidth(max);
   }, []);
 
+  const hSpace = 3 * gutter[0];
+  const vSpace = 3 * gutter[1];
   const margin = legendWidth + hSpace;
-  const last = monthsGrid[monthsGrid.length - 1];
-  const viewBoxWidth = last.width + margin + hSpace;
+  const viewBoxWidth = grid.width + margin + hSpace;
+  const viewBoxHeight = grid.height + (HLabelRenderer ? size / 2 + vSpace : 0);
+  const canRenderContent = !VLabelRenderer || labelsRef.current;
 
   return (
-    <Store data={data} colors={colors} dataKey={dataKey}>
+    <Store data={data} colors={colors} category={category} dataKey={dataKey}>
       <svg
         width="100%"
         className={className}
         preserveAspectRatio="xMidYMin meet"
-        viewBox={`0 0 ${last.x + viewBoxWidth} ${height + (HLabelRenderer ? size / 2 + vSpace : 0)}`}
+        viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
       >
         {VLabelRenderer && (
           <g ref={setRef} fill={labelsRef.current ? undefined : 'none'}>
@@ -102,14 +84,14 @@ function HeatCalendar<T>({
             ))}
           </g>
         )}
-        {(labelsRef.current || !VLabelRenderer) &&
-          monthsGrid.map((config) => (
-            <Month
+        {canRenderContent &&
+          grid?.data.map((config) => (
+            <Layout
               {...config}
               size={size}
               gutter={gutter}
+              key={config.key}
               day={DayRenderer}
-              key={config.month}
               x={config.x + margin}
               label={HLabelRenderer}
             />
