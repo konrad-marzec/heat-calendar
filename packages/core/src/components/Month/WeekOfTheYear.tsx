@@ -6,7 +6,7 @@ import { formatDate } from '../../utils/date.utils';
 import { getWeekStartDay } from '../../utils/week.utils';
 import { useHeatMapScale } from '../../hooks';
 import HLabel from '../HLabel';
-import { geMonthLastDay } from '../../utils/months.utils';
+import { getMonthLastDay } from '../../utils/months.utils';
 import { Dim } from '../../types';
 
 interface WeekOfTheYearProps extends Dim {
@@ -37,7 +37,7 @@ function WeekOfTheYear({
 
   const daysGrid = useMemo(() => {
     const height = size + gutter[1];
-    const lastDay = geMonthLastDay(year, month);
+    const lastDay = getMonthLastDay(year, month);
     let dayId = getWeekStartDay(year, -1, week);
 
     let y = 0;

@@ -1,7 +1,7 @@
 import { MONTHS_IN_YEAR } from '../constants/month.constants';
 import { DAYS_IN_WEEK } from '../constants/week.constants';
 
-export function geMonthLastDay(year: number, month: number) {
+export function getMonthLastDay(year: number, month: number) {
   return new Date(year, month + 1, 0).getDate();
 }
 
