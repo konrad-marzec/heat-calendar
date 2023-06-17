@@ -1,27 +1,29 @@
 import { type ComponentProps, type ComponentType, useMemo, useCallback, useState, useRef } from 'react';
 
-import Day from './Day';
+import DefaultNode from './DefaultNode';
 import { DAYS_IN_WEEK } from '../constants/week.constants';
 import Store from '../model/Store';
 import HLabel from './HLabel';
-import DayName from './DayName';
+import VLabel from './VLabel';
 import { Category } from '../constants/layout.constants';
 import { layoutFactory } from '../utils/layout.utils';
 import Tooltip from '../Tooltip';
+import useCategorizedData from '../hooks/use-categorized-data';
+import { Data, DataKey } from '../types';
 
 interface HeatCalendarProps<T> {
+  data: Data<T>;
   size?: number;
   colors?: string[];
   className?: string;
+  dataKey: DataKey<T>;
   category?: Category;
   startsAt?: string | Date;
-  data: Array<[string, T]>;
   gutter?: [number, number];
   tooltip?: ComponentType<ComponentProps<any>>;
-  day?: ComponentType<ComponentProps<typeof Day>>;
-  vLabel?: ComponentType<ComponentProps<typeof DayName>> | null;
+  node?: ComponentType<ComponentProps<typeof DefaultNode>>;
+  vLabel?: ComponentType<ComponentProps<typeof VLabel>> | null;
   hLabel?: ComponentType<ComponentProps<typeof HLabel>> | null;
-  dataKey: keyof T | ((current: number | undefined, item: T) => number);
 }
 
 function HeatCalendar<T>({
@@ -32,14 +34,15 @@ function HeatCalendar<T>({
   size = 10,
   gutter = [2, 2],
   startsAt = new Date(),
-  day: DayRenderer = Day,
   tooltip: TooltipContent,
-  category = Category.MONTH,
-  vLabel: VLabelRenderer = DayName,
+  category = Category.MONTH_DAY,
   hLabel: HLabelRenderer = HLabel,
+  vLabel: VLabelRenderer = VLabel,
+  node: NodeRenderer = DefaultNode,
 }: HeatCalendarProps<T>) {
   const labelsRef = useRef<SVGGElement>();
-  const [legendWidth, setLegendWidth] = useState(0);
+  const categorizedData = useCategorizedData(data, dataKey, category);
+  const [legendWidth, setLegendWidth] = useState<number | undefined>(undefined);
 
   const [Layout, grid] = useMemo(
     () =>
@@ -67,13 +70,13 @@ function HeatCalendar<T>({
 
   const hSpace = 3 * gutter[0];
   const vSpace = 3 * gutter[1];
-  const margin = legendWidth + hSpace;
+  const margin = (legendWidth ?? 0) + hSpace;
   const viewBoxWidth = grid.width + margin + hSpace;
   const viewBoxHeight = grid.height + (HLabelRenderer ? size / 2 + vSpace : 0);
   const canRenderContent = !VLabelRenderer || labelsRef.current;
 
   return (
-    <Store data={data} colors={colors} category={category} dataKey={dataKey}>
+    <Store data={categorizedData} colors={colors} category={category}>
       <svg
         width="100%"
         className={className}
@@ -83,7 +86,14 @@ function HeatCalendar<T>({
         {VLabelRenderer && (
           <g ref={setRef} fill={labelsRef.current ? undefined : 'none'}>
             {new Array(DAYS_IN_WEEK).fill(0).map((_, day) => (
-              <VLabelRenderer key={day} day={day} x={legendWidth} y={day * (size + gutter[0])} size={size} />
+              <VLabelRenderer
+                key={day}
+                day={day}
+                size={size}
+                category={category}
+                x={legendWidth ?? 0}
+                y={day * (size + gutter[0])}
+              />
             ))}
           </g>
         )}
@@ -94,7 +104,7 @@ function HeatCalendar<T>({
               size={size}
               gutter={gutter}
               key={config.key}
-              day={DayRenderer}
+              node={NodeRenderer}
               x={config.x + margin}
               label={HLabelRenderer}
             />

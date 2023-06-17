@@ -11,7 +11,7 @@ interface HLabelProps extends Point {
 function HLabel({ x, y, value, size }: HLabelProps) {
   const category = useStoreValue((store) => store.category);
 
-  if (category === Category.WEEK) {
+  if (category === Category.WEEK_DAY || category === Category.WEEK) {
     if (value % 2 !== 1) {
       return null;
     }

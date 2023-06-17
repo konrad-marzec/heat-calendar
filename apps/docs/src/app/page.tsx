@@ -35,8 +35,8 @@ function Tooltip({ data }: { data: unknown }) {
 }
 
 export default function Page() {
-  const dataKey = useCallback((val: number | undefined, item: number[]) => val ?? 0 + item[1], []);
-  const dataKey1 = useCallback((val: number | undefined, item: number[]) => Math.max(val ?? 0, item[0]), []);
+  const dataKey = useCallback((val: number | undefined, item: number[]) => val ?? 0 + item[2], []);
+  const dataKey1 = useCallback((val: number | undefined, item: number[]) => Math.max(val ?? 0, item[3]), []);
 
   return (
     <>
@@ -78,7 +78,26 @@ export default function Page() {
       </div>
 
       <div style={container}>
-        <HeatCalendar data={data} hLabel={null} dataKey={dataKey1} startsAt="2014-05-04" colors={RED_COLORS} />
+        <HeatCalendar
+          data={data}
+          hLabel={null}
+          dataKey={dataKey1}
+          startsAt="2014-05-04"
+          colors={RED_COLORS}
+          tooltip={Tooltip}
+        />
+      </div>
+
+      <div style={container}>
+        <HeatCalendar
+          data={data}
+          hLabel={null}
+          category="week-day"
+          dataKey={dataKey1}
+          startsAt="2014-05-27"
+          colors={RED_COLORS}
+          tooltip={Tooltip}
+        />
       </div>
 
       <div style={container}>
@@ -89,11 +108,23 @@ export default function Page() {
           dataKey={dataKey1}
           startsAt="2014-05-27"
           colors={RED_COLORS}
+          tooltip={Tooltip}
         />
       </div>
 
       <div style={container}>
-        <HeatCalendar data={data} dataKey={dataKey} startsAt="2014-05-04" colors={GREEN_COLORS} />
+        <HeatCalendar data={data} dataKey={dataKey} startsAt="2014-05-04" colors={GREEN_COLORS} tooltip={Tooltip} />
+      </div>
+
+      <div style={container}>
+        <HeatCalendar
+          data={data}
+          category="week-day"
+          dataKey={dataKey}
+          startsAt="2014-05-27"
+          colors={GREEN_COLORS}
+          tooltip={Tooltip}
+        />
       </div>
 
       <div style={container}>

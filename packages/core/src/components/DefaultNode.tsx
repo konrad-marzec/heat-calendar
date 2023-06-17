@@ -1,14 +1,15 @@
 import { Dim } from '../types';
 
-interface DayProps extends Dim {
-  day: number;
+interface DefaultNodeProps extends Dim {
+  day?: number;
   year: number;
-  month: number;
+  week?: number;
   value: number;
+  month?: number;
   fitToScale: (value?: number | null) => string | undefined;
 }
 
-function Day({ x, y, value, width, height, day, fitToScale }: DayProps) {
+function DefaultNode({ x, y, value, width, height, fitToScale }: DefaultNodeProps) {
   return (
     <>
       <rect width={width} height={height} x={x} y={y} fill={fitToScale(value)} rx={2} />
@@ -16,4 +17,4 @@ function Day({ x, y, value, width, height, day, fitToScale }: DayProps) {
   );
 }
 
-export default Day;
+export default DefaultNode;

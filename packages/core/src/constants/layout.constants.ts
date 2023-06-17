@@ -1,4 +1,5 @@
 export enum Category {
-  MONTH = 'month',
+  MONTH_DAY = 'month-day',
+  WEEK_DAY = 'week-day',
   WEEK = 'week',
 }

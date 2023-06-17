@@ -1,9 +1,9 @@
 import { type ComponentType, useMemo, type ComponentProps } from 'react';
 
-import type Day from '../Day';
-import WeekOfTheMonth from './WeekOfTheMonth';
+import WeekDayOfTheMonth from './WeekDayOfTheMonth';
 import HLabel from '../HLabel';
 import { Dim } from '../../types';
+import DefaultNode from '../DefaultNode';
 
 interface MonthProps extends Dim {
   year: number;
@@ -11,7 +11,7 @@ interface MonthProps extends Dim {
   month: number;
   weeks: number;
   gutter: [number, number];
-  day: ComponentType<ComponentProps<typeof Day>>;
+  node: ComponentType<ComponentProps<typeof DefaultNode>>;
   label: ComponentType<ComponentProps<typeof HLabel>> | null;
 }
 
@@ -25,7 +25,7 @@ function Month({
   weeks,
   size,
   gutter,
-  day: Day,
+  node: Node,
   label: Label,
 }: MonthProps) {
   const weeksGrid = useMemo(
@@ -43,9 +43,9 @@ function Month({
   return (
     <g x={originX} y={originY}>
       {weeksGrid.map((config) => (
-        <WeekOfTheMonth
+        <WeekDayOfTheMonth
           {...config}
-          day={Day}
+          node={Node}
           year={year}
           size={size}
           month={month}

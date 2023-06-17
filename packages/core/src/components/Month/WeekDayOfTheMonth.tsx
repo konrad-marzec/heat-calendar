@@ -1,54 +1,61 @@
 import { type ComponentType, useMemo, type ComponentProps } from 'react';
 
-import type DefaultDay from '../Day';
 import { useStoreValue } from '../../model/Store';
 import { formatDate } from '../../utils/date.utils';
+import { DAYS_IN_WEEK } from '../../constants/week.constants';
 import { getWeekStartDay } from '../../utils/week.utils';
 import { useHeatMapScale } from '../../hooks';
-import HLabel from '../HLabel';
-import { getMonthLastDay } from '../../utils/months.utils';
-import { Dim } from '../../types';
 import Hoverable from '../Hoverable';
+import { Point } from '../../types';
+import DefaultNode from '../DefaultNode';
 
-interface WeekOfTheYearProps extends Dim {
-  size: number;
-  year: number;
+interface WeekDayOfTheMonthProps extends Point {
   week: number;
+  year: number;
+  size: number;
   month: number;
+  weeks: number;
   gutter: [number, number];
-  day: ComponentType<ComponentProps<typeof DefaultDay>>;
-  label: ComponentType<ComponentProps<typeof HLabel>> | null;
+  node: ComponentType<ComponentProps<typeof DefaultNode>>;
 }
 
-function WeekOfTheYear({
+function WeekDayOfTheMonth({
   x: originX,
   y: originY,
   year,
+  month,
   week,
   size,
-  month,
-  width,
-  height,
   gutter,
-  day: Day,
-  label: Label,
-}: WeekOfTheYearProps) {
+  weeks,
+  node: Node,
+}: WeekDayOfTheMonthProps) {
   const fitToScale = useHeatMapScale();
   const heat = useStoreValue((store) => store.heatMap);
 
   const daysGrid = useMemo(() => {
     const height = size + gutter[1];
-    const lastDay = getMonthLastDay(year, month);
-    let dayId = getWeekStartDay(year, -1, week);
-    let monthId = month;
 
     let y = 0;
+    let count = DAYS_IN_WEEK;
+    let dayId = getWeekStartDay(year, month, week);
 
-    return Array(7)
+    if (week === 1) {
+      const start = new Date(year, month, 1).getDay();
+
+      count = start ? 8 - start : 1;
+      y += height * (start ? start - 1 : 6);
+    }
+
+    if (week === weeks) {
+      const end = new Date(year, month + 1, 0).getDay();
+      count = end || DAYS_IN_WEEK;
+    }
+
+    return Array(count)
       .fill(0)
       .map(() => {
         const config = {
-          month: monthId,
           day: dayId,
           y,
         };
@@ -56,26 +63,21 @@ function WeekOfTheYear({
         y += height;
         dayId += 1;
 
-        if (dayId > lastDay) {
-          dayId = 1;
-          monthId += 1;
-        }
-
         return config;
       });
-  }, [size, gutter, year, week, month]);
+  }, [year, month, size, gutter, week, weeks]);
 
   return (
     <g x={originX} y={originY}>
       {daysGrid.map((config) => {
-        const date = formatDate(new Date(year, config.month, config.day));
+        const date = formatDate(year, month, config.day);
         const value = heat.get(date);
         const y = originY + config.y;
         const x = originX;
 
         const data = {
-          month: config.month,
           day: config.day,
+          month,
           value,
           date,
           year,
@@ -83,10 +85,10 @@ function WeekOfTheYear({
 
         return (
           <Hoverable key={config.day} data={data}>
-            <Day
+            <Node
               fitToScale={fitToScale}
               year={year}
-              month={config.month}
+              month={month}
               day={config.day}
               value={value}
               width={size}
@@ -97,9 +99,8 @@ function WeekOfTheYear({
           </Hoverable>
         );
       })}
-      {Label && <Label x={originX + width / 2} y={originY + height + 3 * gutter[1]} size={size} value={week} />}
     </g>
   );
 }
 
-export default WeekOfTheYear;
+export default WeekDayOfTheMonth;

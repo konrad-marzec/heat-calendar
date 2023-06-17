@@ -1,11 +1,17 @@
+import { Category } from '../constants/layout.constants';
 import { Point } from '../types';
 
-interface DayNameProps extends Point {
+interface VLabelProps extends Point {
   day: number;
   size: number;
+  category: Category;
 }
 
-function DayName({ x, y, day, size }: DayNameProps) {
+function VLabel({ x, y, day, size, category }: VLabelProps) {
+  if (category === Category.WEEK) {
+    return null;
+  }
+
   if (day % 2 === 0) {
     return null;
   }
@@ -26,4 +32,4 @@ function DayName({ x, y, day, size }: DayNameProps) {
   );
 }
 
-export default DayName;
+export default VLabel;

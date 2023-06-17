@@ -3,16 +3,17 @@ import { Category } from '../constants/layout.constants';
 import { countWeeks, reshuffleMonths } from './months.utils';
 import { DAYS_IN_WEEK } from '../constants/week.constants';
 import Month from '../components/Month';
-import WeekOfTheYear from '../components/Month/WeekOfTheYear';
+import WeekDayOfTheYear from '../components/WeekDayOfTheYear';
 import { getMonthForWeek, getWeekNumber, getWeeksInYear } from './week.utils';
-import { Grid, MonthsGrid, WeeksGrid } from '../types';
+import { Grid, MonthDaysGrid, WeekDaysGrid, WeeksGrid } from '../types';
+import WeekOfTheYear from '../components/WeekOfTheYear';
 
 interface Config {
   size: number;
   gutter: [number, number];
 }
 
-function buildMonthsLayout(date: Date, { size, gutter }: Config): Grid<MonthsGrid> {
+function buildMonthsLayout(date: Date, { size, gutter }: Config): Grid<MonthDaysGrid> {
   const startMonth = date.getMonth();
   const startYear = date.getFullYear();
 
@@ -26,7 +27,7 @@ function buildMonthsLayout(date: Date, { size, gutter }: Config): Grid<MonthsGri
     const weeks = countWeeks(year, month);
 
     const width = weeks * size + (weeks - 1) * gutter[0];
-    const res: MonthsGrid = {
+    const res: MonthDaysGrid = {
       x,
       y: 0,
       year,
@@ -41,6 +42,45 @@ function buildMonthsLayout(date: Date, { size, gutter }: Config): Grid<MonthsGri
 
     return res;
   });
+
+  const last = data[data.length - 1];
+
+  return {
+    data,
+    height,
+    width: last.x + last.width,
+  };
+}
+
+function buildWeekDaysLayout(date: Date, { size, gutter }: Config): Grid<WeekDaysGrid> {
+  const startYear = date.getFullYear();
+  const startWeek = getWeekNumber(startYear, date.getMonth(), date.getDate());
+
+  const height = DAYS_IN_WEEK * size + (DAYS_IN_WEEK - 1) * gutter[1];
+
+  const data: WeekDaysGrid[] = [];
+  const weeksInYear = getWeeksInYear(date.getFullYear());
+
+  for (let i = 0; i < weeksInYear; i++) {
+    let year = startYear;
+    let week = i - weeksInYear + startWeek;
+
+    if (startWeek + i <= weeksInYear) {
+      year = startYear - 1;
+      week = startWeek + i;
+    }
+
+    data.push({
+      y: 0,
+      year,
+      week,
+      height,
+      key: i,
+      width: size,
+      x: i * (size + gutter[0]),
+      month: getMonthForWeek(year, week),
+    });
+  }
 
   const last = data[data.length - 1];
 
@@ -77,7 +117,6 @@ function buildWeeksLayout(date: Date, { size, gutter }: Config): Grid<WeeksGrid>
       key: i,
       width: size,
       x: i * (size + gutter[0]),
-      month: getMonthForWeek(year, week),
     });
   }
 
@@ -90,7 +129,12 @@ function buildWeeksLayout(date: Date, { size, gutter }: Config): Grid<WeeksGrid>
   };
 }
 
-export function layoutFactory(startsAt: Date, category: Category, config: Config): [typeof Month, Grid<MonthsGrid>];
+export function layoutFactory(startsAt: Date, category: Category, config: Config): [typeof Month, Grid<MonthDaysGrid>];
+export function layoutFactory(
+  startsAt: Date,
+  category: Category,
+  config: Config,
+): [typeof WeekDayOfTheYear, Grid<WeekDaysGrid>];
 export function layoutFactory(
   startsAt: Date,
   category: Category,
@@ -101,8 +145,12 @@ export function layoutFactory<T extends Category>(
   category: T,
   config: Config,
 ): [ComponentType<any>, Grid<any>] {
-  if (category === Category.MONTH) {
+  if (category === Category.MONTH_DAY) {
     return [Month, buildMonthsLayout(startsAt, config)];
+  }
+
+  if (category === Category.WEEK_DAY) {
+    return [WeekDayOfTheYear, buildWeekDaysLayout(startsAt, config)];
   }
 
   if (category === Category.WEEK) {

@@ -42,7 +42,7 @@ export function getWeekStartDay(year: number, month: number, week: number): numb
 }
 
 export function getWeekNumber(year: number, month: number, day: number) {
-  const date = new Date(year, month, day);
+  const date = new Date(year, month, day + 1);
   date.setUTCHours(0, 0, 0, 0);
 
   const start = startOfTheFirstWeekOfTheYear(date.getFullYear());
