@@ -8,7 +8,7 @@ interface DayProps extends Dim {
   fitToScale: (value?: number | null) => string | undefined;
 }
 
-function Day({ x, y, value, width, height, fitToScale }: DayProps) {
+function Day({ x, y, value, width, height, day, fitToScale }: DayProps) {
   return (
     <>
       <rect width={width} height={height} x={x} y={y} fill={fitToScale(value)} rx={2} />

@@ -39,6 +39,7 @@ function WeekOfTheYear({
     const height = size + gutter[1];
     const lastDay = getMonthLastDay(year, month);
     let dayId = getWeekStartDay(year, -1, week);
+    let monthId = month;
 
     let y = 0;
 
@@ -46,6 +47,7 @@ function WeekOfTheYear({
       .fill(0)
       .map(() => {
         const config = {
+          month: monthId,
           day: dayId,
           y,
         };
@@ -55,6 +57,7 @@ function WeekOfTheYear({
 
         if (dayId > lastDay) {
           dayId = 1;
+          monthId += 1;
         }
 
         return config;
@@ -64,13 +67,13 @@ function WeekOfTheYear({
   return (
     <g x={originX} y={originY}>
       {daysGrid.map((config) => {
-        const value = heat.get(formatDate(new Date(year, month, config.day)));
+        const value = heat.get(formatDate(new Date(year, config.month, config.day)));
 
         return (
           <Day
             key={config.day}
             year={year}
-            month={month}
+            month={config.month}
             day={config.day}
             value={value}
             width={size}
