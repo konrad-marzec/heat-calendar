@@ -1,5 +1,4 @@
 import { Category } from '../constants/layout.constants';
-import { WEEKS_IN_YEAR } from '../constants/week.constants';
 import { useStoreValue } from '../model/Store';
 import { getMonthName } from '../utils/months.utils';
 
@@ -14,7 +13,7 @@ function HLabel({ x, y, value, size }: HLabelProps) {
   const category = useStoreValue((store) => store.category);
 
   if (category === Category.WEEK) {
-    if (value % 4 !== 1 && value !== WEEKS_IN_YEAR) {
+    if (value % 2 !== 1) {
       return null;
     }
 

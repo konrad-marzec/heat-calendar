@@ -9,7 +9,11 @@ interface DayProps extends Dim {
 }
 
 function Day({ x, y, value, width, height, fitToScale }: DayProps) {
-  return <rect width={width} height={height} x={x} y={y} fill={fitToScale(value)} rx={2} />;
+  return (
+    <>
+      <rect width={width} height={height} x={x} y={y} fill={fitToScale(value)} rx={2} />
+    </>
+  );
 }
 
 export default Day;

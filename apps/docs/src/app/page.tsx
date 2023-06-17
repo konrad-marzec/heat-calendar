@@ -61,12 +61,13 @@ export default function Page() {
       <div style={container}>
         <HeatCalendar data={data} hLabel={null} dataKey={dataKey1} startsAt="2014-05-04" colors={GREEN_COLORS} />
       </div>
+
       <div style={container}>
         <HeatCalendar data={data} dataKey={dataKey} startsAt="2014-05-04" colors={GREEN_COLORS} />
       </div>
 
       <div style={container}>
-        <HeatCalendar data={data} category="week" dataKey={dataKey} startsAt="2014-05-04" colors={GREEN_COLORS} />
+        <HeatCalendar data={data} category="week" dataKey={dataKey} startsAt="2014-05-27" colors={GREEN_COLORS} />
       </div>
     </>
   );

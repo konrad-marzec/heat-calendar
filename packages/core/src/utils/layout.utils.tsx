@@ -1,10 +1,10 @@
 import { ComponentType } from 'react';
 import { Category } from '../constants/layout.constants';
 import { countWeeks, reshuffleMonths } from './months.utils';
-import { DAYS_IN_WEEK, WEEKS_IN_YEAR } from '../constants/week.constants';
+import { DAYS_IN_WEEK } from '../constants/week.constants';
 import Month from '../components/Month';
 import WeekOfTheYear from '../components/Month/WeekOfTheYear';
-import { getMonthForWeek, getWeekNumber } from './week.utils';
+import { getMonthForWeek, getWeekNumber, getWeeksInYear } from './week.utils';
 import { Grid, MonthsGrid, WeeksGrid } from '../types';
 
 interface Config {
@@ -53,17 +53,18 @@ function buildMonthsLayout(date: Date, { size, gutter }: Config): Grid<MonthsGri
 
 function buildWeeksLayout(date: Date, { size, gutter }: Config): Grid<WeeksGrid> {
   const startYear = date.getFullYear();
-  const startWeek = (getWeekNumber(date) + 1) % WEEKS_IN_YEAR;
+  const startWeek = getWeekNumber(startYear, date.getMonth(), date.getDate());
 
   const height = DAYS_IN_WEEK * size + (DAYS_IN_WEEK - 1) * gutter[1];
 
   const data: WeeksGrid[] = [];
+  const weeksInYear = getWeeksInYear(date.getFullYear());
 
-  for (let i = 0; i < WEEKS_IN_YEAR; i++) {
+  for (let i = 0; i < weeksInYear; i++) {
     let year = startYear;
-    let week = i - WEEKS_IN_YEAR + startWeek;
+    let week = i - weeksInYear + startWeek;
 
-    if (startWeek + i <= WEEKS_IN_YEAR) {
+    if (startWeek + i <= weeksInYear) {
       year = startYear - 1;
       week = startWeek + i;
     }
