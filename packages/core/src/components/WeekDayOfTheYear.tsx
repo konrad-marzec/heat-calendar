@@ -11,9 +11,9 @@ import Hoverable from './Hoverable';
 import DefaultNode from './DefaultNode';
 
 interface WeekDayOfTheYearProps extends Dim {
-  size: number;
-  year: number;
   week: number;
+  year: number;
+  size: number;
   month: number;
   gutter: [number, number];
   node: ComponentType<ComponentProps<typeof DefaultNode>>;

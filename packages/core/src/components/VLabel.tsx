@@ -8,11 +8,7 @@ interface VLabelProps extends Point {
 }
 
 function VLabel({ x, y, day, size, category }: VLabelProps) {
-  if (category === Category.WEEK) {
-    return null;
-  }
-
-  if (day % 2 === 0) {
+  if (category === Category.WEEK || day % 2 === 0) {
     return null;
   }
 
