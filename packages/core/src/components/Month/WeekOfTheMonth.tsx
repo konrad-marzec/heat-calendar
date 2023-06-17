@@ -6,11 +6,11 @@ import { formatDate } from '../../utils/date.utils';
 import { DAYS_IN_WEEK } from '../../constants/week.constants';
 import { getWeekStartDay } from '../../utils/week.utils';
 import { useHeatMapScale } from '../../hooks';
+import Hoverable from '../Hoverable';
+import { Point } from '../../types';
 
-interface WeekOfTheMonthProps {
+interface WeekOfTheMonthProps extends Point {
   week: number;
-  x: number;
-  y: number;
   year: number;
   size: number;
   month: number;
@@ -70,21 +70,33 @@ function WeekOfTheMonth({
   return (
     <g x={originX} y={originY}>
       {daysGrid.map((config) => {
-        const value = heat.get(formatDate(new Date(year, month, config.day)));
+        const date = formatDate(new Date(year, month, config.day));
+        const value = heat.get(date);
+        const y = originY + config.y;
+        const x = originX;
+
+        const data = {
+          day: config.day,
+          month,
+          value,
+          date,
+          year,
+        };
 
         return (
-          <Day
-            key={config.day}
-            year={year}
-            month={month}
-            day={config.day}
-            value={value}
-            width={size}
-            height={size}
-            x={originX}
-            y={originY + config.y}
-            fitToScale={fitToScale}
-          />
+          <Hoverable key={config.day} data={data}>
+            <Day
+              fitToScale={fitToScale}
+              year={year}
+              month={month}
+              day={config.day}
+              value={value}
+              width={size}
+              height={size}
+              x={x}
+              y={y}
+            />
+          </Hoverable>
         );
       })}
     </g>

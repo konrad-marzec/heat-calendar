@@ -2,11 +2,13 @@ import { ReactNode, useEffect } from 'react';
 import createFastContext from '../utils/createFastContext';
 import { formatDate } from '../utils/date.utils';
 import { Category } from '../constants/layout.constants';
+import { Point } from '../types';
 
 const { Provider, useStore, useSetStore, useStoreValue } = createFastContext({
   heatMap: new Map(),
   colors: [] as string[],
   category: Category.MONTH,
+  tooltip: undefined as [unknown, Point] | undefined,
 });
 
 interface StoreProps<T> {
@@ -14,6 +16,7 @@ interface StoreProps<T> {
   category: Category;
   children: ReactNode;
   data: Array<[string, T]>;
+  tooltip?: [unknown, Point];
   dataKey: keyof T | ((current: number | undefined, item: T) => number);
 }
 

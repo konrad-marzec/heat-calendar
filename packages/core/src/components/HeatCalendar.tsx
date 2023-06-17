@@ -7,6 +7,7 @@ import HLabel from './HLabel';
 import DayName from './DayName';
 import { Category } from '../constants/layout.constants';
 import { layoutFactory } from '../utils/layout.utils';
+import Tooltip from '../Tooltip';
 
 interface HeatCalendarProps<T> {
   size?: number;
@@ -16,6 +17,7 @@ interface HeatCalendarProps<T> {
   startsAt?: string | Date;
   data: Array<[string, T]>;
   gutter?: [number, number];
+  tooltip?: ComponentType<ComponentProps<any>>;
   day?: ComponentType<ComponentProps<typeof Day>>;
   vLabel?: ComponentType<ComponentProps<typeof DayName>> | null;
   hLabel?: ComponentType<ComponentProps<typeof HLabel>> | null;
@@ -31,6 +33,7 @@ function HeatCalendar<T>({
   gutter = [2, 2],
   startsAt = new Date(),
   day: DayRenderer = Day,
+  tooltip: TooltipContent,
   category = Category.MONTH,
   vLabel: VLabelRenderer = DayName,
   hLabel: HLabelRenderer = HLabel,
@@ -97,6 +100,11 @@ function HeatCalendar<T>({
             />
           ))}
       </svg>
+      {TooltipContent && (
+        <Tooltip>
+          <TooltipContent />
+        </Tooltip>
+      )}
     </Store>
   );
 }

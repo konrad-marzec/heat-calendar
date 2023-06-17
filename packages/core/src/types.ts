@@ -1,6 +1,9 @@
-export interface Dim {
+export interface Point {
   x: number;
   y: number;
+}
+
+export interface Dim extends Point {
   width: number;
   height: number;
 }

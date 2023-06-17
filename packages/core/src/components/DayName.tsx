@@ -1,6 +1,6 @@
-interface DayNameProps {
-  x: number;
-  y: number;
+import { Point } from '../types';
+
+interface DayNameProps extends Point {
   day: number;
   size: number;
 }

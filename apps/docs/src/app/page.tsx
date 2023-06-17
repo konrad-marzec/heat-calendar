@@ -14,7 +14,23 @@ const container = {
   borderRadius: 6,
   marginBottom: 16,
   background: '#343434',
+  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
 };
+
+function Tooltip({ data }: { data: unknown }) {
+  return (
+    <div
+      style={{
+        padding: 10,
+        maxWidth: 200,
+        borderRadius: 6,
+        background: 'white',
+      }}
+    >
+      {JSON.stringify(data, null, 2)}
+    </div>
+  );
+}
 
 export default function Page() {
   const dataKey = useCallback((val: number | undefined, item: number[]) => val ?? 0 + item[1], []);
@@ -35,6 +51,7 @@ export default function Page() {
           dataKey={dataKey}
           startsAt="2013-2-04"
           colors={ORANGE_COLORS}
+          tooltip={Tooltip}
         />
       </div>
 
@@ -63,11 +80,29 @@ export default function Page() {
       </div>
 
       <div style={container}>
+        <HeatCalendar
+          data={data}
+          hLabel={null}
+          category="week"
+          dataKey={dataKey1}
+          startsAt="2014-05-27"
+          colors={GREEN_COLORS}
+        />
+      </div>
+
+      <div style={container}>
         <HeatCalendar data={data} dataKey={dataKey} startsAt="2014-05-04" colors={GREEN_COLORS} />
       </div>
 
       <div style={container}>
-        <HeatCalendar data={data} category="week" dataKey={dataKey} startsAt="2014-05-27" colors={GREEN_COLORS} />
+        <HeatCalendar
+          data={data}
+          category="week"
+          dataKey={dataKey}
+          startsAt="2014-05-27"
+          colors={GREEN_COLORS}
+          tooltip={Tooltip}
+        />
       </div>
     </>
   );

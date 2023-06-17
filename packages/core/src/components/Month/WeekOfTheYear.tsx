@@ -8,6 +8,7 @@ import { useHeatMapScale } from '../../hooks';
 import HLabel from '../HLabel';
 import { getMonthLastDay } from '../../utils/months.utils';
 import { Dim } from '../../types';
+import Hoverable from '../Hoverable';
 
 interface WeekOfTheYearProps extends Dim {
   size: number;
@@ -67,21 +68,33 @@ function WeekOfTheYear({
   return (
     <g x={originX} y={originY}>
       {daysGrid.map((config) => {
-        const value = heat.get(formatDate(new Date(year, config.month, config.day)));
+        const date = formatDate(new Date(year, config.month, config.day));
+        const value = heat.get(date);
+        const y = originY + config.y;
+        const x = originX;
+
+        const data = {
+          month: config.month,
+          day: config.day,
+          value,
+          date,
+          year,
+        };
 
         return (
-          <Day
-            key={config.day}
-            year={year}
-            month={config.month}
-            day={config.day}
-            value={value}
-            width={size}
-            height={size}
-            x={originX}
-            y={originY + config.y}
-            fitToScale={fitToScale}
-          />
+          <Hoverable key={config.day} data={data}>
+            <Day
+              fitToScale={fitToScale}
+              year={year}
+              month={config.month}
+              day={config.day}
+              value={value}
+              width={size}
+              height={size}
+              x={x}
+              y={y}
+            />
+          </Hoverable>
         );
       })}
       {Label && <Label x={originX + width / 2} y={originY + height + 3 * gutter[1]} size={size} value={week} />}
