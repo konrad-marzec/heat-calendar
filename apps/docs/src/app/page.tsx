@@ -5,6 +5,7 @@ import { data } from './data';
 import { useCallback } from 'react';
 
 const COLORS = ['#CCDBDC', '#9AD1D4', '#C7F9CC', '#DBFF76', '#B6DC76', '#80CED7', '#57CC99', '#007EA7', '#003249'];
+const RED_COLORS = ['#caaeac', '#ff7875', '#ff4d4f', '#cf1322', '#a8071a', '#820014', '#5c0011'];
 const ORANGE_COLORS = ['#7a7672', '#e0c599', '#e2a458', '#d46b08', '#873800'];
 const GREEN_COLORS = ['#5e5e56', '#7cb305', '#5b8c00', '#3f6600'];
 
@@ -12,8 +13,8 @@ const container = {
   padding: 16,
   color: 'white',
   borderRadius: 6,
-  marginBottom: 16,
   background: '#343434',
+  margin: '16px 46px 32px 46px',
   boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
 };
 
@@ -25,6 +26,7 @@ function Tooltip({ data }: { data: unknown }) {
         maxWidth: 200,
         borderRadius: 6,
         background: 'white',
+        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
       }}
     >
       {JSON.stringify(data, null, 2)}
@@ -76,7 +78,7 @@ export default function Page() {
       </div>
 
       <div style={container}>
-        <HeatCalendar data={data} hLabel={null} dataKey={dataKey1} startsAt="2014-05-04" colors={GREEN_COLORS} />
+        <HeatCalendar data={data} hLabel={null} dataKey={dataKey1} startsAt="2014-05-04" colors={RED_COLORS} />
       </div>
 
       <div style={container}>
@@ -86,7 +88,7 @@ export default function Page() {
           category="week"
           dataKey={dataKey1}
           startsAt="2014-05-27"
-          colors={GREEN_COLORS}
+          colors={RED_COLORS}
         />
       </div>
 
