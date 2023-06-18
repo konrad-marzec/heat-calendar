@@ -39,8 +39,9 @@ function WeekDayOfTheYear({
   const daysGrid = useMemo(() => {
     const height = size + gutter[1];
     const lastDay = getMonthLastDay(year, month);
-    let dayId = getWeekStartDay(year, -1, week);
+    let yearId = year;
     let monthId = month;
+    let dayId = getWeekStartDay(year, -1, week);
 
     let y = 0;
 
@@ -49,6 +50,7 @@ function WeekDayOfTheYear({
       .map(() => {
         const config = {
           month: monthId,
+          year: yearId,
           day: dayId,
           y,
         };
@@ -58,7 +60,8 @@ function WeekDayOfTheYear({
 
         if (dayId > lastDay) {
           dayId = 1;
-          monthId += 1;
+          yearId += Math.floor(monthId / 11);
+          monthId = (monthId + 1) % 12;
         }
 
         return config;
@@ -68,17 +71,17 @@ function WeekDayOfTheYear({
   return (
     <g x={originX} y={originY}>
       {daysGrid.map((config) => {
-        const date = formatDate(year, config.month, config.day);
+        const date = formatDate(config.year, config.month, config.day);
         const value = heat.get(date);
         const y = originY + config.y;
         const x = originX;
 
         const data = {
           month: config.month,
+          year: config.year,
           day: config.day,
           value,
           date,
-          year,
         };
 
         return (

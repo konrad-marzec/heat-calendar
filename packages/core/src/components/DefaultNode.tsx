@@ -9,10 +9,13 @@ interface DefaultNodeProps extends Dim {
   fitToScale: (value?: number | null) => string | undefined;
 }
 
-function DefaultNode({ x, y, value, width, height, fitToScale }: DefaultNodeProps) {
+function DefaultNode({ x, y, value, width, height, day, fitToScale }: DefaultNodeProps) {
   return (
     <>
       <rect width={width} height={height} x={x} y={y} fill={fitToScale(value)} rx={2} />
+      {/* <text x={x} y={y + 10} fill="red" fontSize={10}>
+        {day}
+      </text> */}
     </>
   );
 }
