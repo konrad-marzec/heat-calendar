@@ -10,6 +10,7 @@ import { layoutFactory } from '../utils/layout.utils';
 import Tooltip from '../Tooltip';
 import useCategorizedData from '../hooks/use-categorized-data';
 import { Data, DataKey } from '../types';
+import DefaultLegend from './DefaultLegend';
 
 interface HeatCalendarProps<T> {
   data: Data<T>;
@@ -24,6 +25,7 @@ interface HeatCalendarProps<T> {
   node?: ComponentType<ComponentProps<typeof DefaultNode>>;
   vLabel?: ComponentType<ComponentProps<typeof VLabel>> | null;
   hLabel?: ComponentType<ComponentProps<typeof HLabel>> | null;
+  legend?: ComponentType<ComponentProps<typeof DefaultLegend>> | null;
 }
 
 function HeatCalendar<T>({
@@ -39,6 +41,7 @@ function HeatCalendar<T>({
   hLabel: HLabelRenderer = HLabel,
   vLabel: VLabelRenderer = VLabel,
   node: NodeRenderer = DefaultNode,
+  legend: LegendRenderer = DefaultLegend,
 }: HeatCalendarProps<T>) {
   const labelsRef = useRef<SVGGElement>();
   const categorizedData = useCategorizedData(data, dataKey, category);
@@ -71,9 +74,12 @@ function HeatCalendar<T>({
   const hSpace = 3 * gutter[0];
   const vSpace = 3 * gutter[1];
   const margin = (legendWidth ?? 0) + hSpace;
-  const viewBoxWidth = grid.width + margin + hSpace;
-  const viewBoxHeight = grid.height + (HLabelRenderer ? size / 2 + vSpace : 0);
+  const legendHeight = LegendRenderer ? size + vSpace : 0;
+  const hLabelsHeight = HLabelRenderer ? size / 2 + vSpace : 0;
   const canRenderContent = !VLabelRenderer || labelsRef.current;
+
+  const viewBoxWidth = grid.width + margin + hSpace;
+  const viewBoxHeight = grid.height + hLabelsHeight + legendHeight;
 
   return (
     <Store data={categorizedData} colors={colors} category={category}>
@@ -83,6 +89,7 @@ function HeatCalendar<T>({
         preserveAspectRatio="xMidYMin meet"
         viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
       >
+        {LegendRenderer && <LegendRenderer colors={colors} x={viewBoxWidth - hSpace} y={gutter[1]} size={size} />}
         {VLabelRenderer && (
           <g ref={setRef} fill={labelsRef.current ? undefined : 'none'}>
             {new Array(DAYS_IN_WEEK).fill(0).map((_, day) => (
@@ -92,7 +99,7 @@ function HeatCalendar<T>({
                 size={size}
                 category={category}
                 x={legendWidth ?? 0}
-                y={day * (size + gutter[0])}
+                y={day * (size + gutter[0]) + legendHeight}
               />
             ))}
           </g>
@@ -107,6 +114,7 @@ function HeatCalendar<T>({
               node={NodeRenderer}
               x={config.x + margin}
               label={HLabelRenderer}
+              y={config.y + legendHeight}
             />
           ))}
       </svg>

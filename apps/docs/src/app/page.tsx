@@ -124,6 +124,7 @@ export default function Page() {
         <HeatCalendar
           size={20}
           data={data}
+          legend={null}
           dataKey={dataKey}
           startsAt="2014-05-04"
           colors={ORANGE_COLORS}
