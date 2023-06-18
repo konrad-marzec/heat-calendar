@@ -41,46 +41,10 @@ export default function Page() {
   return (
     <>
       <div style={container}>
-        <HeatCalendar size={40} gutter={[5, 5]} data={data} dataKey={dataKey} startsAt={'2015-12-04'} colors={COLORS} />
-      </div>
-
-      <div style={container}>
         <HeatCalendar
           data={data}
           hLabel={null}
           vLabel={null}
-          gutter={[2, 2]}
-          dataKey={dataKey}
-          startsAt="2013-2-04"
-          colors={ORANGE_COLORS}
-          tooltip={Tooltip}
-        />
-      </div>
-
-      <div style={container}>
-        <HeatCalendar
-          size={20}
-          data={data}
-          dataKey={dataKey}
-          startsAt="2014-05-04"
-          colors={ORANGE_COLORS}
-          vLabel={({ y, day }: any) => (
-            <text x={0} y={y} fontSize={20} fill="currentColor" textAnchor="start" alignmentBaseline="text-before-edge">
-              - {day + 1} -
-            </text>
-          )}
-          hLabel={({ x, y }: any) => (
-            <text x={x} y={y} fill="currentColor" fontSize={10} textAnchor="middle" alignmentBaseline="hanging">
-              &#128197;
-            </text>
-          )}
-        />
-      </div>
-
-      <div style={container}>
-        <HeatCalendar
-          data={data}
-          hLabel={null}
           dataKey={dataKey1}
           startsAt="2014-05-04"
           colors={RED_COLORS}
@@ -92,6 +56,7 @@ export default function Page() {
         <HeatCalendar
           data={data}
           hLabel={null}
+          vLabel={null}
           category="week-day"
           dataKey={dataKey1}
           startsAt="2014-05-27"
@@ -135,6 +100,43 @@ export default function Page() {
           startsAt="2014-05-27"
           colors={GREEN_COLORS}
           tooltip={Tooltip}
+        />
+      </div>
+
+      <div style={container}>
+        <HeatCalendar size={40} gutter={[5, 5]} data={data} dataKey={dataKey} startsAt={'2015-12-04'} colors={COLORS} />
+      </div>
+
+      <div style={container}>
+        <HeatCalendar
+          data={data}
+          hLabel={null}
+          vLabel={null}
+          gutter={[2, 2]}
+          dataKey={dataKey}
+          startsAt="2013-2-04"
+          colors={ORANGE_COLORS}
+          tooltip={Tooltip}
+        />
+      </div>
+
+      <div style={container}>
+        <HeatCalendar
+          size={20}
+          data={data}
+          dataKey={dataKey}
+          startsAt="2014-05-04"
+          colors={ORANGE_COLORS}
+          vLabel={({ y, day }: any) => (
+            <text x={0} y={y} fontSize={20} fill="currentColor" textAnchor="start" alignmentBaseline="text-before-edge">
+              - {day + 1} -
+            </text>
+          )}
+          hLabel={({ x, y }: any) => (
+            <text x={x} y={y} fill="currentColor" fontSize={10} textAnchor="middle" alignmentBaseline="hanging">
+              &#128197;
+            </text>
+          )}
         />
       </div>
     </>
