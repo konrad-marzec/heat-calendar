@@ -35,7 +35,7 @@ describe('months.utils', () => {
       ${'2013-02-28'} | ${[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 1]}
       ${'2023-01-01'} | ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0]}
     `('should place start month in the end', ({ startsAt, expected }) => {
-      expect(reshuffleMonths(new Date(startsAt).getMonth())).toEqual(expected);
+      expect(reshuffleMonths(new Date(startsAt).getUTCMonth())).toEqual(expected);
     });
   });
 });

@@ -23,7 +23,7 @@ function VLabel({ x, y, day, size, category }: VLabelProps) {
     >
       {new Intl.DateTimeFormat(typeof navigator === 'undefined' ? 'en-US' : navigator.language, {
         weekday: 'long',
-      }).format(new Date(2023, 7, day))}
+      }).format(new Date(Date.UTC(2023, 7, day)))}
     </text>
   );
 }
