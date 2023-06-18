@@ -2,16 +2,16 @@ import { MONTHS_IN_YEAR } from '../constants/month.constants';
 import { DAYS_IN_WEEK } from '../constants/week.constants';
 
 export function getMonthLastDay(year: number, month: number) {
-  return new Date(year, month + 1, 0).getDate();
+  return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
 }
 
 export function getMonthName(month: number, locale: string) {
   var format = new Intl.DateTimeFormat(locale, { month: 'long' });
 
-  return format.format(new Date(2000, month, 1, 0, 0, 0));
+  return format.format(new Date(Date.UTC(2000, month, 1)));
 }
 
-export function reshuffleMonths(start = new Date().getMonth()) {
+export function reshuffleMonths(start = new Date().getUTCMonth()) {
   const futureMonths: Array<number> = [];
   for (let i = start; i >= 0; i--) {
     futureMonths.unshift(i);
@@ -26,11 +26,11 @@ export function reshuffleMonths(start = new Date().getMonth()) {
 }
 
 export function countWeeks(year: number, month: number) {
-  const startDay = new Date(year, month, 1).getDay();
-  const endDay = new Date(year, month + 1, 0).getDay();
+  const startDay = new Date(Date.UTC(year, month, 1)).getUTCDay();
+  const endDay = new Date(Date.UTC(year, month + 1, 0)).getUTCDay();
 
   let count = 0;
-  let daysInMonth = new Date(year, month + 1, 0).getDate();
+  let daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
 
   if (startDay !== 1) {
     count += 1;

@@ -14,8 +14,8 @@ interface Config {
 }
 
 function buildMonthsLayout(date: Date, { size, gutter }: Config): Grid<MonthDaysGrid> {
-  const startMonth = date.getMonth();
-  const startYear = date.getFullYear();
+  const startMonth = date.getUTCMonth();
+  const startYear = date.getUTCFullYear();
 
   const hSpace = 3 * gutter[0];
   const height = DAYS_IN_WEEK * size + (DAYS_IN_WEEK - 1) * gutter[1];
@@ -53,13 +53,13 @@ function buildMonthsLayout(date: Date, { size, gutter }: Config): Grid<MonthDays
 }
 
 function buildWeekDaysLayout(date: Date, { size, gutter }: Config): Grid<WeekDaysGrid> {
-  const startYear = date.getFullYear();
-  const startWeek = getWeekNumber(startYear, date.getMonth(), date.getDate());
+  const startYear = date.getUTCFullYear();
+  const startWeek = getWeekNumber(startYear, date.getUTCMonth(), date.getUTCDate());
 
   const height = DAYS_IN_WEEK * size + (DAYS_IN_WEEK - 1) * gutter[1];
 
   const data: WeekDaysGrid[] = [];
-  const weeksInYear = getWeeksInYear(date.getFullYear());
+  const weeksInYear = getWeeksInYear(date.getUTCFullYear());
 
   for (let i = 0; i < weeksInYear; i++) {
     let year = startYear;
@@ -92,13 +92,13 @@ function buildWeekDaysLayout(date: Date, { size, gutter }: Config): Grid<WeekDay
 }
 
 function buildWeeksLayout(date: Date, { size, gutter }: Config): Grid<WeeksGrid> {
-  const startYear = date.getFullYear();
-  const startWeek = getWeekNumber(startYear, date.getMonth(), date.getDate());
+  const startYear = date.getUTCFullYear();
+  const startWeek = getWeekNumber(startYear, date.getUTCMonth(), date.getUTCDate());
 
   const height = DAYS_IN_WEEK * size + (DAYS_IN_WEEK - 1) * gutter[1];
 
   const data: WeeksGrid[] = [];
-  const weeksInYear = getWeeksInYear(date.getFullYear());
+  const weeksInYear = getWeeksInYear(date.getUTCFullYear());
 
   for (let i = 0; i < weeksInYear; i++) {
     let year = startYear;

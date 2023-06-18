@@ -41,14 +41,14 @@ function WeekDayOfTheMonth({
     let dayId = getWeekStartDay(year, month, week);
 
     if (week === 1) {
-      const start = new Date(year, month, 1).getDay();
+      const start = new Date(Date.UTC(year, month, 1)).getDay();
 
       count = start ? 8 - start : 1;
       y += height * (start ? start - 1 : 6);
     }
 
     if (week === weeks) {
-      const end = new Date(year, month + 1, 0).getDay();
+      const end = new Date(Date.UTC(year, month + 1, 0)).getDay();
       count = end || DAYS_IN_WEEK;
     }
 

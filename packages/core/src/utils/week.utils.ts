@@ -2,22 +2,14 @@ import { DAYS_IN_WEEK } from '../constants/week.constants';
 import { fromDays } from './time.utils';
 
 function startOfTheFirstWeekOfTheYear(year: number) {
-  const date = new Date(year, 0, 1);
-  date.setUTCHours(0, 0, 0, 0);
-
-  const day = date.getDay() || DAYS_IN_WEEK;
+  const date = new Date(Date.UTC(year, 0, 0));
+  const day = date.getUTCDay() || DAYS_IN_WEEK;
 
   if (day >= 4) {
-    const start = new Date(date.getTime() + fromDays(DAYS_IN_WEEK - day + 1));
-    start.setUTCHours(0, 0, 0, 0);
-
-    return start;
+    return new Date(date.getTime() + fromDays(DAYS_IN_WEEK - day + 1));
   }
 
-  const start = new Date(date.getTime() - fromDays(day - 1));
-  start.setUTCHours(0, 0, 0, 0);
-
-  return start;
+  return new Date(date.getTime() - fromDays(day - 1));
 }
 
 export function getWeeksInYear(year: number) {
@@ -31,27 +23,26 @@ export function getWeekStartDay(year: number, month: number, week: number): numb
   if (month === -1) {
     const timestamp = startOfTheFirstWeekOfTheYear(year).getTime() + DAYS_IN_WEEK * week * fromDays(1);
 
-    return new Date(timestamp).getDate();
+    return new Date(timestamp).getUTCDate();
   }
 
   if (week === 1) {
     return 1;
   }
 
-  return (week - 1) * DAYS_IN_WEEK - (new Date(year, month, 1).getDay() || DAYS_IN_WEEK) + 2;
+  return (week - 1) * DAYS_IN_WEEK - (new Date(Date.UTC(year, month, 1)).getUTCDay() || DAYS_IN_WEEK) + 2;
 }
 
 export function getWeekNumber(year: number, month: number, day: number) {
-  const date = new Date(year, month, day + 1);
-  date.setUTCHours(0, 0, 0, 0);
+  const date = new Date(Date.UTC(year, month, day));
 
-  const start = startOfTheFirstWeekOfTheYear(date.getFullYear());
-  const end = startOfTheFirstWeekOfTheYear(date.getFullYear() + 1);
+  const start = startOfTheFirstWeekOfTheYear(date.getUTCFullYear());
+  const end = startOfTheFirstWeekOfTheYear(date.getUTCFullYear() + 1);
 
-  const weekDay = date.getDay() || DAYS_IN_WEEK;
+  const weekDay = date.getUTCDay() || DAYS_IN_WEEK;
   const weeksInYear = (end.getTime() - start.getTime()) / fromDays(7);
 
-  if (date.getMonth() === 0 && date.getDate() < 7) {
+  if (date.getUTCMonth() === 0 && date.getUTCDate() < 7) {
     if (date.getTime() < start.getTime()) {
       return weeksInYear;
     }
@@ -73,5 +64,5 @@ export function getWeekNumber(year: number, month: number, day: number) {
 export function getMonthForWeek(year: number, week: number) {
   const timestamp = startOfTheFirstWeekOfTheYear(year).getTime() + DAYS_IN_WEEK * week * fromDays(1);
 
-  return new Date(timestamp).getMonth();
+  return new Date(timestamp).getUTCMonth();
 }

@@ -1,7 +1,7 @@
 import { getMonthForWeek, getWeekNumber, getWeekStartDay, getWeeksInYear } from '../week.utils';
 
 describe('week.utils', () => {
-  describe.skip('getMonthForWeek', () => {
+  describe('getMonthForWeek', () => {
     it.each`
       year    | week  | expected
       ${2020} | ${1}  | ${0}
@@ -40,7 +40,7 @@ describe('week.utils', () => {
     });
   });
 
-  describe.skip('getWeeksInYear', () => {
+  describe('getWeeksInYear', () => {
     it.each`
       year    | expected
       ${1999} | ${52}
@@ -56,7 +56,7 @@ describe('week.utils', () => {
     });
   });
 
-  describe.skip('getWeekStartDay', () => {
+  describe('getWeekStartDay', () => {
     it.each`
       year    | month | week | expected
       ${1999} | ${9}  | ${1} | ${1}

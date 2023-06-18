@@ -3,10 +3,10 @@ import { getWeekNumber } from './week.utils';
 
 export function getDay(timestamp: string) {
   const date = new Date(timestamp);
-  return formatDate(date.getFullYear(), date.getMonth(), date.getDate());
+  return formatDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
 }
 
 export function getWeek(timestamp: string) {
   const date = new Date(timestamp);
-  return formatWeek(date.getFullYear(), getWeekNumber(date.getFullYear(), date.getMonth(), date.getDate()));
+  return formatWeek(date.getUTCFullYear(), getWeekNumber(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
 }
