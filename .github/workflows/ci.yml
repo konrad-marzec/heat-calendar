@@ -22,19 +22,19 @@ jobs:
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v3
-      
+
     - name: Setup pnpm 8
       uses: pnpm/action-setup@v2
       with:
         version: 8
-          
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        
+
     - name: Install Dependencies
       run: pnpm i
-        
-    - name: Install Dependencies
+
+    - name: Run tests
       run: pnpm test
