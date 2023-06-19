@@ -117,11 +117,23 @@ export default function Page() {
           legend={null}
           hLabel={null}
           vLabel={null}
-          gutter={[2, 2]}
           dataKey={dataKey}
-          startsAt="2013-2-04"
+          startsAt="2013-05-04"
           colors={ORANGE_COLORS}
           tooltip={Tooltip}
+          node={({ x, y, value, width, height, fitToScale }: any) => {
+            return (
+              <rect
+                style={{ transform: 'rotate(20deg)', transformOrigin: `${x + width / 2}px ${y + height / 2}px` }}
+                fill={fitToScale(value)}
+                height={height}
+                width={width}
+                rx={2}
+                x={x}
+                y={y}
+              />
+            );
+          }}
         />
       </div>
 
@@ -131,19 +143,18 @@ export default function Page() {
           data={data}
           legend={null}
           dataKey={dataKey}
-          startsAt="2014-05-04"
+          startsAt="2013-05-04"
           colors={ORANGE_COLORS}
           title="Title for the following heatmap"
-          vLabel={({ y, day }: any) => (
-            <text x={0} y={y} fontSize={10} fill="currentColor" textAnchor="start" alignmentBaseline="text-before-edge">
-              - {day + 1} -
-            </text>
-          )}
+          vLabel={null}
           hLabel={({ x, y }: any) => (
             <text x={x} y={y} fill="currentColor" fontSize={10} textAnchor="middle" alignmentBaseline="hanging">
               &#128197;
             </text>
           )}
+          node={({ x, y, value, width, fitToScale }: any) => {
+            return <circle cx={x + width / 2} cy={y + width / 2} r={width / 2} fill={fitToScale(value)} />;
+          }}
         />
       </div>
     </>
