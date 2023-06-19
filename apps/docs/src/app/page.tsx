@@ -11,6 +11,7 @@ const GREEN_COLORS = ['#5e5e56', '#7cb305', '#5b8c00', '#3f6600'];
 
 const container = {
   padding: 16,
+  fontSize: 6,
   color: 'white',
   borderRadius: 6,
   background: '#343434',
@@ -40,7 +41,7 @@ export default function Page() {
 
   return (
     <>
-      <div style={container}>
+      <div style={{ ...container, fontSize: 8 }}>
         <HeatCalendar
           data={data}
           hLabel={null}
@@ -49,6 +50,7 @@ export default function Page() {
           startsAt="2014-05-04"
           colors={RED_COLORS}
           tooltip={Tooltip}
+          title="Title for the following heatmap"
         />
       </div>
 
@@ -62,6 +64,7 @@ export default function Page() {
           startsAt="2014-05-27"
           colors={RED_COLORS}
           tooltip={Tooltip}
+          title="Title for the following heatmap"
         />
       </div>
 
@@ -74,6 +77,7 @@ export default function Page() {
           startsAt="2014-05-27"
           colors={RED_COLORS}
           tooltip={Tooltip}
+          title="Title for the following heatmap"
         />
       </div>
 
@@ -103,13 +107,14 @@ export default function Page() {
         />
       </div>
 
-      <div style={container}>
+      <div style={{ ...container, fontSize: 20 }}>
         <HeatCalendar size={40} gutter={[5, 5]} data={data} dataKey={dataKey} startsAt={'2015-12-04'} colors={COLORS} />
       </div>
 
       <div style={container}>
         <HeatCalendar
           data={data}
+          legend={null}
           hLabel={null}
           vLabel={null}
           gutter={[2, 2]}
@@ -122,14 +127,15 @@ export default function Page() {
 
       <div style={container}>
         <HeatCalendar
-          size={20}
+          size={10}
           data={data}
           legend={null}
           dataKey={dataKey}
           startsAt="2014-05-04"
           colors={ORANGE_COLORS}
+          title="Title for the following heatmap"
           vLabel={({ y, day }: any) => (
-            <text x={0} y={y} fontSize={20} fill="currentColor" textAnchor="start" alignmentBaseline="text-before-edge">
+            <text x={0} y={y} fontSize={10} fill="currentColor" textAnchor="start" alignmentBaseline="text-before-edge">
               - {day + 1} -
             </text>
           )}

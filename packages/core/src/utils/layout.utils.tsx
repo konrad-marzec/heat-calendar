@@ -96,8 +96,8 @@ function buildWeeksLayout(date: Date, { size, gutter }: Config): Grid<WeeksGrid>
   const startWeek = getWeekNumber(startYear, date.getUTCMonth(), date.getUTCDate());
 
   const data: WeeksGrid[] = [];
-  const height = DAYS_IN_WEEK * size;
   const weeksInYear = getWeeksInYear(date.getUTCFullYear());
+  const height = DAYS_IN_WEEK * size + (DAYS_IN_WEEK - 1) * gutter[1];
 
   for (let i = 0; i < weeksInYear; i++) {
     let year = startYear;

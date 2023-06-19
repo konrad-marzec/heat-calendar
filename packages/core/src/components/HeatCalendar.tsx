@@ -15,6 +15,7 @@ import DefaultLegend from './DefaultLegend';
 interface HeatCalendarProps<T> {
   data: Data<T>;
   size?: number;
+  title?: string;
   colors?: string[];
   className?: string;
   dataKey: DataKey<T>;
@@ -30,6 +31,7 @@ interface HeatCalendarProps<T> {
 
 function HeatCalendar<T>({
   data,
+  title,
   colors,
   dataKey,
   className,
@@ -68,13 +70,15 @@ function HeatCalendar<T>({
       max = Math.max(max, ref.children[i].clientWidth);
     }
 
-    setLegendWidth(max);
+    const pixelRation = typeof window !== 'undefined' ? window.devicePixelRatio : 1;
+
+    setLegendWidth(max * pixelRation);
   }, []);
 
   const hSpace = 3 * gutter[0];
   const vSpace = 3 * gutter[1];
   const margin = (legendWidth ?? 0) + hSpace;
-  const legendHeight = LegendRenderer ? size + vSpace : 0;
+  const legendHeight = LegendRenderer || title ? size + vSpace : 0;
   const hLabelsHeight = HLabelRenderer ? size / 2 + vSpace : 0;
   const canRenderContent = !VLabelRenderer || labelsRef.current;
 
@@ -86,12 +90,20 @@ function HeatCalendar<T>({
       <svg
         width="100%"
         className={className}
+        style={{ overflow: 'visible' }}
         preserveAspectRatio="xMidYMin meet"
         viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
       >
-        {LegendRenderer && <LegendRenderer colors={colors} x={viewBoxWidth - hSpace} y={gutter[1]} size={size} />}
+        {canRenderContent && title && (
+          <text x={hSpace} y={gutter[0]} textAnchor="start" fill="currentColor" alignmentBaseline="hanging">
+            {title}
+          </text>
+        )}
+        {canRenderContent && LegendRenderer && (
+          <LegendRenderer colors={colors} x={viewBoxWidth - hSpace} y={gutter[1]} size={size} />
+        )}
         {VLabelRenderer && (
-          <g ref={setRef} fill={labelsRef.current ? undefined : 'none'}>
+          <g ref={setRef} fill={labelsRef.current ? 'currentColor' : 'transparent'}>
             {new Array(DAYS_IN_WEEK).fill(0).map((_, day) => (
               <VLabelRenderer
                 key={day}

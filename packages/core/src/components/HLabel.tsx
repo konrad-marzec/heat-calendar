@@ -17,14 +17,14 @@ function HLabel({ x, y, value, size }: HLabelProps) {
     }
 
     return (
-      <text x={x} y={y} fill="currentColor" fontSize={size / 2} textAnchor="middle" alignmentBaseline="hanging">
+      <text x={x} y={y} fill="currentColor" textAnchor="middle" alignmentBaseline="hanging">
         {value}
       </text>
     );
   }
 
   return (
-    <text x={x} y={y} fill="currentColor" fontSize={size / 2} textAnchor="middle" alignmentBaseline="hanging">
+    <text x={x} y={y} fill="currentColor" textAnchor="middle" alignmentBaseline="hanging">
       {getMonthName(value, typeof navigator === 'undefined' ? 'en-US' : navigator.language)}
     </text>
   );

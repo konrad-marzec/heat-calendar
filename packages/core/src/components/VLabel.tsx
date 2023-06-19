@@ -13,14 +13,7 @@ function VLabel({ x, y, day, size, category }: VLabelProps) {
   }
 
   return (
-    <text
-      x={x}
-      y={y + size / 4}
-      fill="currentColor"
-      fontSize={size / 2}
-      alignmentBaseline="hanging"
-      textAnchor={x ? 'end' : 'start'}
-    >
+    <text x={x} y={y + size / 4} alignmentBaseline="hanging" textAnchor={x ? 'end' : 'start'}>
       {new Intl.DateTimeFormat(typeof navigator === 'undefined' ? 'en-US' : navigator.language, {
         weekday: 'long',
       }).format(new Date(Date.UTC(2023, 7, day)))}
