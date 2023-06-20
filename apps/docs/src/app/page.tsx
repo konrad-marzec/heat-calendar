@@ -157,6 +157,28 @@ export default function Page() {
           }}
         />
       </div>
+
+      <div style={container}>
+        <HeatCalendar
+          data={data}
+          hLabel={null}
+          category="week"
+          dataKey={dataKey}
+          startsAt="2013-05-29"
+          colors={ORANGE_COLORS}
+          node={({ x, y, value, width, height, fitToScale }: any) => {
+            return (
+              <polygon
+                strokeLinejoin="round"
+                points={`${x},${y + height} ${x + width / 2 - 1},${y} ${x + width / 2 + 1},${y} ${x + width},${
+                  y + height
+                }`}
+                fill={fitToScale(value)}
+              />
+            );
+          }}
+        />
+      </div>
     </>
   );
 }
