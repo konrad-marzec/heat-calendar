@@ -128,22 +128,22 @@ function buildWeeksLayout(date: Date, { size, gutter }: Config): Grid<WeeksGrid>
   };
 }
 
-export function layoutFactory(startsAt: Date, category: Category, config: Config): [typeof Month, Grid<MonthDaysGrid>];
 export function layoutFactory(
   startsAt: Date,
-  category: Category,
+  category: Category.MONTH_DAY,
+  config: Config,
+): [typeof Month, Grid<MonthDaysGrid>];
+export function layoutFactory(
+  startsAt: Date,
+  category: Category.WEEK_DAY,
   config: Config,
 ): [typeof WeekDayOfTheYear, Grid<WeekDaysGrid>];
 export function layoutFactory(
   startsAt: Date,
-  category: Category,
+  category: Category.WEEK,
   config: Config,
 ): [typeof WeekOfTheYear, Grid<WeeksGrid>];
-export function layoutFactory<T extends Category>(
-  startsAt: Date,
-  category: T,
-  config: Config,
-): [ComponentType<any>, Grid<any>] {
+export function layoutFactory(startsAt: Date, category: any, config: Config): [any, any] {
   if (category === Category.MONTH_DAY) {
     return [Month, buildMonthsLayout(startsAt, config)];
   }
