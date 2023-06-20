@@ -1,4 +1,3 @@
-import { ComponentType } from 'react';
 import { Category } from '../constants/layout.constants';
 import { countWeeks, reshuffleMonths } from './months.utils';
 import { DAYS_IN_WEEK } from '../constants/week.constants';
@@ -7,6 +6,7 @@ import WeekDayOfTheYear from '../components/WeekDayOfTheYear';
 import { getMonthForWeek, getWeekNumber, getWeeksInYear } from './week.utils';
 import { Grid, MonthDaysGrid, WeekDaysGrid, WeeksGrid } from '../types';
 import WeekOfTheYear from '../components/WeekOfTheYear';
+import Empty from '../components/Empty';
 
 interface Config {
   size: number;
@@ -156,5 +156,5 @@ export function layoutFactory(startsAt: Date, category: any, config: Config): [a
     return [WeekOfTheYear, buildWeeksLayout(startsAt, config)];
   }
 
-  return [() => null, { data: [], width: 0, height: 0 }];
+  return [Empty, { data: [], width: 0, height: 0 }];
 }

@@ -1,3 +1,4 @@
+import Empty from '../../components/Empty';
 import Month from '../../components/Month/Month';
 import WeekDayOfTheYear from '../../components/WeekDayOfTheYear';
 import WeekOfTheYear from '../../components/WeekOfTheYear';
@@ -161,6 +162,27 @@ describe('layout.utils', () => {
 
       expect(grid.data[11].x).toBe(110);
       expect(grid.data[11].y).toBe(0);
+    });
+  });
+
+  describe('unknown', () => {
+    it('should return empty layout component', () => {
+      const [Component] = layoutFactory(new Date('2020-01-01'), 'unknown' as any, CONFIG);
+
+      expect(Component).toBe(Empty);
+    });
+
+    it('should return no data', () => {
+      const [, grid] = layoutFactory(new Date('2020-01-01'), 'unknown' as any, CONFIG);
+
+      expect(grid.data).toHaveLength(0);
+    });
+
+    it('should return calendar dimension', () => {
+      const [, grid] = layoutFactory(new Date('2020-01-01'), 'unknown' as any, CONFIG);
+
+      expect(grid.width).toBe(0);
+      expect(grid.height).toBe(0);
     });
   });
 });

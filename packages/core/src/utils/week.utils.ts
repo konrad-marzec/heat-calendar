@@ -40,11 +40,14 @@ export function getWeekNumber(year: number, month: number, day: number) {
   const end = startOfTheFirstWeekOfTheYear(date.getUTCFullYear() + 1);
 
   const weekDay = date.getUTCDay() || DAYS_IN_WEEK;
-  const weeksInYear = (end.getTime() - start.getTime()) / fromDays(7);
 
-  if (date.getUTCMonth() === 0 && date.getUTCDate() < 7) {
+  if (date.getUTCMonth() === 0 && date.getUTCDate() < DAYS_IN_WEEK) {
     if (date.getTime() < start.getTime()) {
-      return weeksInYear;
+      return (
+        (startOfTheFirstWeekOfTheYear(date.getUTCFullYear()).getTime() -
+          startOfTheFirstWeekOfTheYear(date.getUTCFullYear() - 1).getTime()) /
+        fromDays(7)
+      );
     }
   }
 
@@ -53,7 +56,7 @@ export function getWeekNumber(year: number, month: number, day: number) {
       return 1;
     }
 
-    return weeksInYear;
+    return (end.getTime() - start.getTime()) / fromDays(7);
   }
 
   const startOfTheWeek = date.getTime() - fromDays(weekDay - 1);

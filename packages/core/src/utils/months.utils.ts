@@ -6,9 +6,7 @@ export function getMonthLastDay(year: number, month: number) {
 }
 
 export function getMonthName(month: number, locale: string) {
-  var format = new Intl.DateTimeFormat(locale, { month: 'long' });
-
-  return format.format(new Date(Date.UTC(2000, month, 1)));
+  return new Intl.DateTimeFormat(locale, { month: 'long' }).format(new Date(Date.UTC(2000, month, 1)));
 }
 
 export function reshuffleMonths(start = new Date().getUTCMonth()) {

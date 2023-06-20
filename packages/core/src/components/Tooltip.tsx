@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { useStoreValue } from './model/Store';
+import { useStoreValue } from '../model/Store';
 import { createPortal } from 'react-dom';
 
 interface TooltipProps {

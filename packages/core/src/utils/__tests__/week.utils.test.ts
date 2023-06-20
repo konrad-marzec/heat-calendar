@@ -32,8 +32,9 @@ describe('week.utils', () => {
       ${2020} | ${5}  | ${6}  | ${23}
       ${2020} | ${0}  | ${13} | ${3}
       ${2020} | ${1}  | ${29} | ${9}
-      ${2020} | ${11} | ${31} | ${53}
       ${2020} | ${11} | ${28} | ${53}
+      ${2020} | ${11} | ${31} | ${53}
+      ${2021} | ${0}  | ${1}  | ${53}
       ${2080} | ${11} | ${28} | ${52}
     `('should return number of weeks within the month', ({ year, month, day, expected }) => {
       expect(getWeekNumber(year, month, day)).toBe(expected);
@@ -66,8 +67,21 @@ describe('week.utils', () => {
       ${2019} | ${0}  | ${3} | ${14}
       ${2019} | ${11} | ${1} | ${1}
       ${2019} | ${11} | ${6} | ${30}
-    `('should place start month in the end', ({ year, month, week, expected }) => {
+    `('should return date of the first day of the week', ({ year, month, week, expected }) => {
       expect(getWeekStartDay(year, month, week)).toEqual(expected);
+    });
+
+    it.each`
+      year    | week | expected
+      ${1999} | ${1} | ${11}
+      ${2012} | ${4} | ${30}
+      ${2013} | ${4} | ${28}
+      ${2019} | ${2} | ${14}
+      ${2019} | ${3} | ${21}
+      ${2019} | ${1} | ${7}
+      ${2019} | ${6} | ${11}
+    `('should return date of the first day of the week', ({ year, week, expected }) => {
+      expect(getWeekStartDay(year, -1, week)).toEqual(expected);
     });
   });
 });
