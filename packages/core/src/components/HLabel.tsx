@@ -8,7 +8,7 @@ interface HLabelProps extends Point {
   value: number;
 }
 
-function HLabel({ x, y, value, size }: HLabelProps) {
+function HLabel({ x, y, value }: HLabelProps) {
   const category = useStoreValue((store) => store.category);
 
   if (category === Category.WEEK_DAY || category === Category.WEEK) {

@@ -8,9 +8,9 @@ import VLabel from './VLabel';
 import { Category } from '../constants/layout.constants';
 import { layoutFactory } from '../utils/layout.utils';
 import Tooltip from './Tooltip';
-import useCategorizedData from '../hooks/use-categorized-data';
 import { Data, DataKey } from '../types';
 import DefaultLegend from './DefaultLegend';
+import { useCategorizedData } from '../hooks';
 
 interface HeatCalendarProps<T> {
   data: Data<T>;
