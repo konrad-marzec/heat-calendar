@@ -5,7 +5,7 @@
   "scripts": {
     "start": "storybook",
     "dev": "next dev -p 3002",
-    "lint": "next lint",
+    "demo-lint": "next lint",
     "visual-tests": "chromatic --exit-zero-on-changes",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next",
     "storybook": "storybook dev -p 6006",
