@@ -1,10 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev --no-cache --continue",
-    "test": "turbo test",
     "lint": "turbo lint",
+    "test": "turbo test",
+    "build": "turbo build",
+    "visual-tests": "turbo visual-tests",
+    "dev": "turbo dev --no-cache --continue",
     "clean": "turbo clean && rm -rf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "changeset": "changeset",
