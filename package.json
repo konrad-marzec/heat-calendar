@@ -3,6 +3,7 @@
   "scripts": {
     "lint": "turbo lint",
     "test": "turbo test",
+    "tsc": "turbo tsc",
     "build": "turbo build",
     "visual-tests": "turbo visual-tests",
     "dev": "turbo dev --no-cache --continue",
