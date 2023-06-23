@@ -1,6 +1,6 @@
 import { Category } from '../constants/layout.constants';
 import { useStoreValue } from '../model/Store';
-import { Point } from '../types';
+import { type Point } from '../types';
 import { getMonthName } from '../utils/months.utils';
 
 interface HLabelProps extends Point {

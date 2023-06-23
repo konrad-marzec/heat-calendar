@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ['base'],
+  extends: ['base', 'plugin:storybook/recommended']
 };

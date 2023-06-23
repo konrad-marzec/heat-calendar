@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "test": "jest",
+    "tsc": "tsc -p ./tsconfig.json",
     "coverage": "jest --coverage",
     "build": "swc src --out-dir dist --config-file ./.swcrc",
     "dev": "swc src --watch --out-dir dist --config-file ./.swcrc",
@@ -32,6 +33,7 @@
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-test-renderer": "^18.2.0",
     "tsconfig": "workspace:*",
     "tsup": "^6.7.0",

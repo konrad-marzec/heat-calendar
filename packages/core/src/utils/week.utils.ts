@@ -1,5 +1,5 @@
-import { DAYS_IN_WEEK } from '../constants/week.constants';
 import { fromDays } from './time.utils';
+import { DAYS_IN_WEEK } from '../constants/week.constants';
 
 function startOfTheFirstWeekOfTheYear(year: number) {
   const date = new Date(Date.UTC(year, 0, 0));

@@ -1,14 +1,14 @@
 import { type ComponentType, useMemo, type ComponentProps } from 'react';
 
-import { useStoreValue } from './../model/Store';
-import { formatDate } from './../utils/date.utils';
-import { getWeekStartDay } from './../utils/week.utils';
 import { useHeatMapScale } from './../hooks';
-import HLabel from './HLabel';
+import { useStoreValue } from './../model/Store';
+import { type Dim } from './../types';
+import { formatDate } from './../utils/date.utils';
 import { getMonthLastDay } from './../utils/months.utils';
-import { Dim } from './../types';
+import { getWeekStartDay } from './../utils/week.utils';
+import type DefaultNode from './DefaultNode';
+import type HLabel from './HLabel';
 import Hoverable from './Hoverable';
-import DefaultNode from './DefaultNode';
 
 interface WeekDayOfTheYearProps extends Dim {
   week: number;

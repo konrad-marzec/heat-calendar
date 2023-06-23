@@ -10,12 +10,12 @@ export function getMonthName(month: number, locale: string) {
 }
 
 export function reshuffleMonths(start = new Date().getUTCMonth()) {
-  const futureMonths: Array<number> = [];
+  const futureMonths: number[] = [];
   for (let i = start; i >= 0; i--) {
     futureMonths.unshift(i);
   }
 
-  const pastMonths: Array<number> = [];
+  const pastMonths: number[] = [];
   for (let i = start + 1; i < MONTHS_IN_YEAR; i++) {
     pastMonths.push(i);
   }

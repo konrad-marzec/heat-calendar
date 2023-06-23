@@ -1,10 +1,10 @@
-import { Dim } from '../types';
+import { type Dim } from '../types';
 
 interface DefaultNodeProps extends Dim {
   day?: number;
   year: number;
   week?: number;
-  value: number;
+  value?: number;
   month?: number;
   fitToScale: (value?: number | null) => string | undefined;
 }

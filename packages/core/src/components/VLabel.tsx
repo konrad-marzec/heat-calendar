@@ -1,5 +1,5 @@
 import { Category } from '../constants/layout.constants';
-import { Point } from '../types';
+import { type Point } from '../types';
 
 interface VLabelProps extends Point {
   day: number;

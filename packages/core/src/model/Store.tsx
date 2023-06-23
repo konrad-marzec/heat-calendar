@@ -1,24 +1,25 @@
-import { ReactNode, useEffect } from 'react';
-import createFastContext from '../utils/createFastContext';
+import { type ReactNode, useEffect } from 'react';
+
 import { Category } from '../constants/layout.constants';
-import { Point } from '../types';
+import { type Point } from '../types';
+import createFastContext from '../utils/createFastContext';
 
 const { Provider, useStore, useSetStore, useStoreValue } = createFastContext({
-  heatMap: new Map(),
   colors: [] as string[],
   category: Category.MONTH_DAY,
+  heatMap: new Map<string, number>(),
   tooltip: undefined as [unknown, Point] | undefined,
 });
 
-interface StoreProps<T> {
+interface StoreProps {
   colors?: string[];
   category: Category;
   children: ReactNode;
-  data: Map<string, T>;
+  data: Map<string, number>;
   tooltip?: [unknown, Point];
 }
 
-function InitializeStore<T>({ children, data, colors, category }: StoreProps<T>) {
+function InitializeStore<T>({ children, data, colors, category }: StoreProps) {
   const set = useSetStore();
 
   useEffect(() => {
@@ -36,7 +37,7 @@ function InitializeStore<T>({ children, data, colors, category }: StoreProps<T>)
   return children;
 }
 
-function Store<T>(props: StoreProps<T>) {
+function Store(props: StoreProps) {
   return (
     <Provider>
       <InitializeStore {...props} />

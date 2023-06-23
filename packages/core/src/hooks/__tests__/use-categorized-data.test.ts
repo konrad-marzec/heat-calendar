@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { useCategorizedData } from '../use-categorized-data';
+
 import { Category } from '../../constants/layout.constants';
+import { useCategorizedData } from '../use-categorized-data';
 
 const DATA: Array<[string, Record<string, number | string>]> = [
   ['2012-01-01', { key1: 1, key2: 2, key3: 'three' }],
