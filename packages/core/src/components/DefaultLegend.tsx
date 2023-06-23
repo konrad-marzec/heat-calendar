@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { Point } from '../types';
+
+import { type Point } from '../types';
 
 interface DefaultLegendProps extends Point {
   size: number;
@@ -13,7 +14,7 @@ function DefaultLegend({ x, y, size, colors }: DefaultLegendProps) {
     return null;
   }
 
-  const length = colors.length;
+  const {length} = colors;
 
   return (
     <>

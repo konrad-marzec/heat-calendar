@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
+
 import { Category } from '../constants/layout.constants';
-import { Data, DataKey } from '../types';
+import { type Data, type DataKey } from '../types';
 import { getDay, getWeek } from '../utils/category.utils';
 
 const CATEGORY_FN: Record<Category, (timestamp: string) => string> = {

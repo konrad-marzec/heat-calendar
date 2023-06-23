@@ -68,7 +68,7 @@ export const WithoutLabels: Story = {
     hLabel: null,
     vLabel: null,
     legend: null,
-    // @ts-expect-error
+    // @ts-expect-error OK! fix me later
     dataKey: '2',
   },
 };
@@ -79,7 +79,7 @@ export const DefaultLabels: Story = {
     startsAt: '2014-05-04',
     colors: GREEN_COLORS,
     title: 'Heat Map Title',
-    // @ts-expect-error
+    // @ts-expect-error OK! fix me later
     dataKey: '2',
   },
 };
@@ -89,10 +89,10 @@ export const CustomLabels: Story = {
     category: Category.WEEK_DAY,
     startsAt: '2014-05-04',
     colors: RED_COLORS,
-    // @ts-expect-error
+    // @ts-expect-error OK! fix me later
     dataKey: '2',
     vLabel: null,
-    hLabel: ({ x, y }: any) => (
+    hLabel: ({ x, y }) => (
       <text x={x} y={y} fill="currentColor" fontSize={10} textAnchor="middle" alignmentBaseline="hanging">
         &#128197;
       </text>
@@ -106,9 +106,9 @@ export const CustomNodes: Story = {
     startsAt: '2014-05-04',
     colors: ORANGE_COLORS,
     title: 'Heat Map Title',
-    // @ts-expect-error
+    // @ts-expect-error OK! fix me later
     dataKey: '2',
-    node: ({ x, y, value, width, fitToScale }: any) => (
+    node: ({ x, y, value, width, fitToScale }) => (
       <circle cx={x + width / 2} cy={y + width / 2} r={width / 2} fill={fitToScale(value)} />
     ),
   },
@@ -120,21 +120,21 @@ export const CustomNodesWeeks: Story = {
     startsAt: '2014-05-04',
     colors: ORANGE_COLORS,
     title: 'Heat Map Title',
-    node: ({ x, y, value, width, height, fitToScale }: any) => (
+    node: ({ x, y, value, width, height, fitToScale }) => (
       <polygon
         strokeLinejoin="round"
         points={`${x},${y + height} ${x + width / 2 - 1},${y} ${x + width / 2 + 1},${y} ${x + width},${y + height}`}
         fill={fitToScale(value)}
       />
     ),
-    // @ts-expect-error
+    // @ts-expect-error OK! fix me later
     dataKey: '3',
   },
 };
 
 export const CustomDataAggregation: Story = {
   args: {
-    // @ts-expect-error
+    // @ts-expect-error OK! fix me later
     dataKey: (val: number | undefined, item: number[]) => Math.max(val ?? 0, item[3]),
     category: Category.MONTH_DAY,
     startsAt: '2013-05-04',
@@ -145,7 +145,7 @@ export const CustomDataAggregation: Story = {
 
 export const Tooltip: Story = {
   args: {
-    // @ts-expect-error
+    // @ts-expect-error OK! fix me later
     dataKey: (val: number | undefined, item: number[]) => Math.max(val ?? 0, item[1]),
     category: Category.MONTH_DAY,
     startsAt: '2013-05-04',

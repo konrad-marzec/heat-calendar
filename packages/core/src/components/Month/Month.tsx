@@ -1,9 +1,9 @@
 import { type ComponentType, useMemo, type ComponentProps } from 'react';
 
 import WeekDayOfTheMonth from './WeekDayOfTheMonth';
-import HLabel from '../HLabel';
-import { Dim } from '../../types';
-import DefaultNode from '../DefaultNode';
+import { type Dim } from '../../types';
+import type DefaultNode from '../DefaultNode';
+import type HLabel from '../HLabel';
 
 interface MonthProps extends Dim {
   year: number;

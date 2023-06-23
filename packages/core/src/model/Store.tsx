@@ -1,12 +1,13 @@
-import { ReactNode, useEffect } from 'react';
-import createFastContext from '../utils/createFastContext';
+import { type ReactNode, useEffect } from 'react';
+
 import { Category } from '../constants/layout.constants';
-import { Point } from '../types';
+import { type Point } from '../types';
+import createFastContext from '../utils/createFastContext';
 
 const { Provider, useStore, useSetStore, useStoreValue } = createFastContext({
-  heatMap: new Map(),
   colors: [] as string[],
   category: Category.MONTH_DAY,
+  heatMap: new Map<string, number>(),
   tooltip: undefined as [unknown, Point] | undefined,
 });
 

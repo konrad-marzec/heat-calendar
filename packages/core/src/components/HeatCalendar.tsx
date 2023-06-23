@@ -1,16 +1,16 @@
 import { type ComponentProps, type ComponentType, useMemo, useCallback, useState, useRef } from 'react';
 
+import DefaultLegend from './DefaultLegend';
 import DefaultNode from './DefaultNode';
-import { DAYS_IN_WEEK } from '../constants/week.constants';
-import Store from '../model/Store';
 import HLabel from './HLabel';
+import Tooltip from './Tooltip';
 import VLabel from './VLabel';
 import { Category } from '../constants/layout.constants';
-import { layoutFactory } from '../utils/layout.utils';
-import Tooltip from './Tooltip';
-import { Data, DataKey } from '../types';
-import DefaultLegend from './DefaultLegend';
+import { DAYS_IN_WEEK } from '../constants/week.constants';
 import { useCategorizedData } from '../hooks';
+import Store from '../model/Store';
+import { type Data, type DataKey } from '../types';
+import { layoutFactory } from '../utils/layout.utils';
 
 interface HeatCalendarProps<T> {
   data: Data<T>;
@@ -22,7 +22,7 @@ interface HeatCalendarProps<T> {
   category?: Category;
   startsAt?: string | Date;
   gutter?: [number, number];
-  tooltip?: ComponentType<ComponentProps<any>>;
+  tooltip?: ComponentType;
   node?: ComponentType<ComponentProps<typeof DefaultNode>>;
   vLabel?: ComponentType<ComponentProps<typeof VLabel>> | null;
   hLabel?: ComponentType<ComponentProps<typeof HLabel>> | null;
@@ -51,6 +51,7 @@ function HeatCalendar<T>({
 
   const [Layout, grid] = useMemo(
     () =>
+      // @ts-expect-error OK! fix me later
       layoutFactory(new Date(startsAt), category, {
         size,
         gutter,
@@ -66,11 +67,12 @@ function HeatCalendar<T>({
     labelsRef.current = ref;
 
     let max = 0;
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < ref.children.length; i++) {
       max = Math.max(max, ref.children[i].clientWidth);
     }
 
-    const pixelRation = typeof window !== 'undefined' ? window.devicePixelRatio : 1;
+    const pixelRation = typeof window === 'undefined' ? 1 : window.devicePixelRatio;
 
     setLegendWidth(max * pixelRation);
   }, []);
@@ -78,7 +80,7 @@ function HeatCalendar<T>({
   const hSpace = 3 * gutter[0];
   const vSpace = 3 * gutter[1];
   const margin = (legendWidth ?? 0) + hSpace;
-  const legendHeight = LegendRenderer || title ? size + vSpace : 0;
+  const legendHeight = Boolean(LegendRenderer) || title ? size + vSpace : 0;
   const hLabelsHeight = HLabelRenderer ? size / 2 + vSpace : 0;
   const canRenderContent = !VLabelRenderer || labelsRef.current;
 

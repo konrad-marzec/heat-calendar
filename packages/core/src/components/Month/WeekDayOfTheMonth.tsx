@@ -1,13 +1,13 @@
 import { type ComponentType, useMemo, type ComponentProps } from 'react';
 
-import { useStoreValue } from '../../model/Store';
-import { formatDate } from '../../utils/date.utils';
 import { DAYS_IN_WEEK } from '../../constants/week.constants';
-import { getWeekStartDay } from '../../utils/week.utils';
 import { useHeatMapScale } from '../../hooks';
+import { useStoreValue } from '../../model/Store';
+import { type Point } from '../../types';
+import { formatDate } from '../../utils/date.utils';
+import { getWeekStartDay } from '../../utils/week.utils';
+import type DefaultNode from '../DefaultNode';
 import Hoverable from '../Hoverable';
-import { Point } from '../../types';
-import DefaultNode from '../DefaultNode';
 
 interface WeekDayOfTheMonthProps extends Point {
   week: number;

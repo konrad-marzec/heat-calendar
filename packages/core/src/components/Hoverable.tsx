@@ -1,4 +1,5 @@
-import { MouseEvent, ReactNode, useCallback } from 'react';
+import { type MouseEvent, type ReactNode, useCallback } from 'react';
+
 import { useSetStore } from '../model/Store';
 
 interface HoverableProps<T> {

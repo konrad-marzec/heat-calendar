@@ -1,4 +1,4 @@
-import { Dim } from '../types';
+import { type Dim } from '../types';
 
 interface DefaultNodeProps extends Dim {
   day?: number;

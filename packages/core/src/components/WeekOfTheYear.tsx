@@ -1,11 +1,12 @@
-import { ComponentProps, ComponentType } from 'react';
-import HLabel from './HLabel';
-import { Dim } from '../types';
+import { type ComponentProps, type ComponentType } from 'react';
+
+import type DefaultNode from './DefaultNode';
+import type HLabel from './HLabel';
+import Hoverable from './Hoverable';
 import { useHeatMapScale } from '../hooks';
 import { useStoreValue } from '../model/Store';
-import Hoverable from './Hoverable';
+import { type Dim } from '../types';
 import { formatWeek } from '../utils/date.utils';
-import DefaultNode from './DefaultNode';
 
 interface WeekOfTheYearProps extends Dim {
   size: number;

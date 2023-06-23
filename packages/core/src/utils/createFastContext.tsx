@@ -1,4 +1,4 @@
-import { useRef, createContext, useContext, useCallback, useSyncExternalStore, ReactNode } from 'react';
+import { useRef, createContext, useContext, useCallback, useSyncExternalStore, type ReactNode } from 'react';
 
 export default function createFastContext<Store>(initialState: Store) {
   function useStoreData(): {
@@ -14,7 +14,9 @@ export default function createFastContext<Store>(initialState: Store) {
 
     const set = useCallback((value: Partial<Store>) => {
       store.current = { ...store.current, ...value };
-      subscribers.current.forEach((callback) => callback());
+      subscribers.current.forEach((callback) => {
+ callback(); 
+});
     }, []);
 
     const subscribe = useCallback((callback: () => void) => {

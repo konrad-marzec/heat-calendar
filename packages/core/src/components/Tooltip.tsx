@@ -1,6 +1,7 @@
-import React, { ReactElement } from 'react';
-import { useStoreValue } from '../model/Store';
+import React, { type ReactElement } from 'react';
 import { createPortal } from 'react-dom';
+
+import { useStoreValue } from '../model/Store';
 
 interface TooltipProps {
   children: ReactElement;

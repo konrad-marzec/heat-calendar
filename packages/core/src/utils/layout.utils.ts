@@ -1,12 +1,12 @@
-import { Category } from '../constants/layout.constants';
 import { countWeeks, reshuffleMonths } from './months.utils';
-import { DAYS_IN_WEEK } from '../constants/week.constants';
+import { getMonthForWeek, getWeekNumber, getWeeksInYear } from './week.utils';
+import Empty from '../components/Empty';
 import Month from '../components/Month';
 import WeekDayOfTheYear from '../components/WeekDayOfTheYear';
-import { getMonthForWeek, getWeekNumber, getWeeksInYear } from './week.utils';
-import { Grid, MonthDaysGrid, WeekDaysGrid, WeeksGrid } from '../types';
 import WeekOfTheYear from '../components/WeekOfTheYear';
-import Empty from '../components/Empty';
+import { Category } from '../constants/layout.constants';
+import { DAYS_IN_WEEK } from '../constants/week.constants';
+import { type Grid, type MonthDaysGrid, type WeekDaysGrid, type WeeksGrid } from '../types';
 
 interface Config {
   size: number;
@@ -143,7 +143,7 @@ export function layoutFactory(
   category: Category.WEEK,
   config: Config,
 ): [typeof WeekOfTheYear, Grid<WeeksGrid>];
-export function layoutFactory(startsAt: Date, category: any, config: Config): [any, any] {
+export function layoutFactory(startsAt: Date, category: unknown, config: Config): [unknown, unknown] {
   if (category === Category.MONTH_DAY) {
     return [Month, buildMonthsLayout(startsAt, config)];
   }

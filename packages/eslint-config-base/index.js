@@ -35,5 +35,37 @@ module.exports = {
     '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/object-curly-spacing': 'off',
     '@typescript-eslint/space-before-function-paren': 'off',
+
+    '@typescript-eslint/consistent-type-definitions': 'off',
+    '@typescript-eslint/ban-types': [
+      'error',
+      {
+        types: {
+          null: false,
+        },
+      },
+    ],
   },
+  overrides: [
+    {
+      files: ['*.json'],
+      rules: {
+        '@typescript-eslint/no-unused-expressions': 'off',
+        '@typescript-eslint/quotes': 'off',
+        '@typescript-eslint/semi': 'off',
+      },
+    },
+    {
+      files: ['*.test.ts', '*.test.tsx'],
+      env: {
+        jest: true,
+      },
+      rules: {
+        '@typescript-eslint/no-unsafe-argument': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/await-thenable': 'off',
+        'max-nested-callbacks': 'off',
+      },
+    },
+  ],
 };
