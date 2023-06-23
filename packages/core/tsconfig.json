@@ -4,6 +4,6 @@
     "outDir": "./dist",
     "emitDeclarationOnly": true
   },
-  "include": ["."],
+  "include": ["./src"],
   "exclude": ["dist", "build", "node_modules"]
 }
