@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "test": "jest",
+    "tsc": "tsc -p ./tsconfig.json",
     "coverage": "jest --coverage",
     "build": "swc src --out-dir dist --config-file ./.swcrc",
     "dev": "swc src --watch --out-dir dist --config-file ./.swcrc",
