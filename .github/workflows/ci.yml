@@ -32,7 +32,7 @@ jobs:
       - name: Run Visual Tests
         run: pnpm visual-tests
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
 
   ci:
@@ -57,8 +57,10 @@ jobs:
     - name: Run Tests
       run: pnpm test
 
+    - name: Run Type Check
+      run: pnpm tsc
+
     - name: Run Lint
       run: pnpm lint
 
-    - name: Run Type Check
-      run: pnpm tsc
+
