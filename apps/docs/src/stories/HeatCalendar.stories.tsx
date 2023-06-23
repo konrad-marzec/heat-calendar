@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { data } from '../data';
-import HeatCalendar from './HeatCalendar';
 import { Category } from 'core';
+
+import HeatCalendar from './HeatCalendar';
+import { data } from '../data';
 
 const meta: Meta<typeof HeatCalendar> = {
   title: 'Heat Calendar',

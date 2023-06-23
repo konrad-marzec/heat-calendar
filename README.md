@@ -7,7 +7,7 @@
 ![alt text](assets/orange.png)
 
 ### Storybook
-[stories](https://64933d96f051a7fde266e6dd-zcvvezwjhb.chromatic.com/?path=/docs/heat-calendar--docs)
+[Check the demo!](https://64933d96f051a7fde266e6dd-zcvvezwjhb.chromatic.com/?path=/docs/heat-calendar--docs)
 
 ### Apps and Packages
 

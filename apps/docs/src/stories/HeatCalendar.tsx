@@ -1,5 +1,5 @@
-import React, { ComponentProps } from 'react';
 import { HeatCalendar as CoreHeatCalendar } from 'core';
+import { type ComponentProps } from 'react';
 
 const container = {
   padding: 16,
