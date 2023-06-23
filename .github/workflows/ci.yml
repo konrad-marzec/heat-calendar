@@ -31,6 +31,12 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
+      - name: Build
+        run: pnpm build
+
+      - name: Build Types
+        run: pnpm tsc
+
       - name: Run Visual Tests
         run: pnpm visual-tests
         env:

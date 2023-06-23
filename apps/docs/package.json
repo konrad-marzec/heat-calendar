@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "build-storybook",
     "start": "storybook",
     "dev": "next dev -p 3002",
     "lint": "next lint",
