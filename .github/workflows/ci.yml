@@ -31,6 +31,9 @@ jobs:
 
       - name: Run Visual Tests
         run: pnpm visual-tests
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
 
   ci:
     runs-on: ubuntu-latest
