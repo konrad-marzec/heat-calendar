@@ -13,7 +13,7 @@
     "test": "jest",
     "tsc": "tsc -p ./tsconfig.json",
     "coverage": "jest --coverage",
-    "build": "build:ts && build:js",
+    "build": "pnpm build:ts && pnpm build:js",
     "build:ts": "swc src --out-dir dist --config-file ./.swcrc",
     "build:js": "swc src --out-dir dist --config-file ./.swcrc",
     "dev": "swc src --watch --out-dir dist --config-file ./.swcrc",
