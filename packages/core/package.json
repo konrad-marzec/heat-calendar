@@ -1,6 +1,6 @@
 {
   "name": "core",
-  "version": "0.0.0",
+  "version": "1.0.3",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -9,11 +9,19 @@
   "files": [
     "dist/**"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/konrad-marzec/heat-calendar.git"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "scripts": {
     "test": "jest",
     "tsc": "tsc -p ./tsconfig.json",
     "coverage": "jest --coverage",
-    "build": "pnpm build:ts && pnpm build:js",
+    "build": "pnpm build:js && pnpm build:ts",
     "build:ts": "swc src --out-dir dist --config-file ./.swcrc",
     "build:js": "swc src --out-dir dist --config-file ./.swcrc",
     "dev": "swc src --watch --out-dir dist --config-file ./.swcrc",

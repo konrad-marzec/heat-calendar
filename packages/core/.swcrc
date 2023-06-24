@@ -1,4 +1,8 @@
 {
+  "$schema": "http://json.schemastore.org/swcrc",
+  "module": {
+    "type": "commonjs"
+  },
   "jsc": {
     "parser": {
       "syntax": "typescript",
@@ -8,6 +12,13 @@
       "react": {
         "runtime": "automatic"
       }
+    },
+    "minify": {
+      "compress": {
+        "unused": true
+      },
+      "mangle": true
     }
-  }
+  },
+  "minify": true
 }
