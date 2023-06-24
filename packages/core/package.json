@@ -13,7 +13,9 @@
     "test": "jest",
     "tsc": "tsc -p ./tsconfig.json",
     "coverage": "jest --coverage",
-    "build": "swc src --out-dir dist --config-file ./.swcrc",
+    "build": "build:ts && build:js",
+    "build:ts": "swc src --out-dir dist --config-file ./.swcrc",
+    "build:js": "swc src --out-dir dist --config-file ./.swcrc",
     "dev": "swc src --watch --out-dir dist --config-file ./.swcrc",
     "lint": "eslint \"src/**/*.ts*\"",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
