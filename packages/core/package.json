@@ -1,13 +1,14 @@
 {
   "name": "core",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
   "files": [
-    "dist/**"
+    "dist/**",
+    "./LICENSE"
   ],
   "repository": {
     "type": "git",

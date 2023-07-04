@@ -1,5 +1,11 @@
 # core
 
+## 1.0.4
+
+### Patch Changes
+
+- 9158653: update readme and license files
+
 ## 1.0.3
 
 ### Patch Changes
