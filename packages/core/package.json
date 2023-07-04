@@ -13,6 +13,15 @@
     "type": "git",
     "url": "https://github.com/konrad-marzec/heat-calendar.git"
   },
+  "keywords": [
+    "calendar",
+    "react",
+    "react-component",
+    "svg",
+    "heatmap",
+    "graph",
+    "data visualization"
+  ],
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
