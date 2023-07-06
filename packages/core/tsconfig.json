@@ -2,8 +2,12 @@
   "extends": "tsconfig/react-library.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "sourceMap": false
   },
   "include": ["./src"],
-  "exclude": ["dist", "build", "node_modules"]
+  "exclude": ["dist", "build", "node_modules"],
+  "ts-node": {
+    "swc": true
+  }
 }
