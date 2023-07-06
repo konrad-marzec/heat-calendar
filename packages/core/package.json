@@ -14,6 +14,7 @@
     "type": "git",
     "url": "https://github.com/konrad-marzec/heat-calendar.git"
   },
+  "description": "heat-calendar is a JavaScript library designed for producing time-series calendar heatmap on top of SVG.",
   "keywords": [
     "calendar",
     "react",
