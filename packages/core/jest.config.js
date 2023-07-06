@@ -1,6 +1,7 @@
 module.exports = {
   transform: {
-    '^.+\\.(t|j)sx?$': '@swc/jest',
+    '^.+\\.(t|j)sx?$': ['ts-jest'],
+    // '^.+\\.(t|j)sx?$': ['@swc/jest'],
   },
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/setup-tests.ts'],

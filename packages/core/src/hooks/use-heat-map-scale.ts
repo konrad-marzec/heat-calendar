@@ -35,10 +35,14 @@ export function useHeatMapScale() {
         return colors[0];
       }
 
-      const length = colors.length - 1;
+      if (value < min) {
+        return colors[0];
+      }
+
+      const size = colors.length;
       const n = ((value - min) / top) * 100;
 
-      return colors[Math.floor((n * length) / 100)];
+      return colors[Math.min(Math.floor((n * size) / 100), size - 1)];
     },
     [max, min, colors],
   );
