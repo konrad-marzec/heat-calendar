@@ -1,5 +1,11 @@
 # core
 
+## 1.0.7
+
+### Patch Changes
+
+- ts bug fixes
+
 ## 1.0.5
 
 ### Patch Changes
